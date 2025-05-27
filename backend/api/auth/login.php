@@ -11,9 +11,9 @@ $password = $data['password'] ?? '';
 
 $db = Database::getInstance()->getConnection();
 $stmt = $db->prepare('SELECT * FROM users WHERE username = :uname');
-$stmt->bindValue(':uname', $username, SQLITE3_TEXT);
-$result = $stmt->execute();
-$user = $result->fetchArray(SQLITE3_ASSOC);
+$stmt->bindValue(':uname', $username, PDO::PARAM_STR);
+$stmt->execute();
+$user = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (!$user) {
     echo json_encode(['success' => false, 'message' => 'User inexistent']);
