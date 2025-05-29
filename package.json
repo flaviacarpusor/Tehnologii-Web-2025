@@ -1,0 +1,36 @@
+{
+  "name": "tehnologii-web-2025",
+  "version": "1.0.0",
+  "description": "ReT (Resource Recommender Web Tool)",
+  "main": "backend/config/server.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "start": "node backend/config/server.js",
+    "dev": "nodemon backend/config/server.js",
+    "migrate:up": "node-pg-migrate up",
+    "migrate:down": "node-pg-migrate down"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/flaviacarpusor/Tehnologii-Web-2025.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/flaviacarpusor/Tehnologii-Web-2025/issues"
+  },
+  "homepage": "https://github.com/flaviacarpusor/Tehnologii-Web-2025#readme",
+  "dependencies": {
+    "dotenv": "^16.5.0",
+    "jsonwebtoken": "^9.0.2",
+    "pg": "^8.16.0"
+  },
+  "devDependencies": {
+    "eslint": "^9.27.0",
+    "node-pg-migrate": "^8.0.0",
+    "nodemon": "^3.1.10"
+  }
+}
