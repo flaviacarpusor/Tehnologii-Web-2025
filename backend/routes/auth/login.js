@@ -1,7 +1,7 @@
-const { Pool } = require('pg');
 const crypto = require('crypto');
-const jwt = require('jsonwebtoken'); 
-const pool = require('../../config/database');
+const jwt = require('jsonwebtoken');
+const User = require('../../models/User');
+const { createJWT } = require('../../middleware/auth');
 
 const JWT_SECRET = process.env.JWT_SECRET || 'schimba_aceasta_cheie';
 
@@ -39,30 +39,23 @@ async function handleLogin(req, res) {
     }
     try {
       // Caută utilizatorul în baza de date după username
-      const result = await pool.query(
-        'SELECT id, password_hash, role FROM users WHERE username=$1',
-        [username]
-      );
+      const user = await User.findByUsername(username);
       // Dacă nu există userul, răspunde cu eroare 401 (neautorizat)
-      if (!result.rows[0]) {
+      if (!user) {
         res.writeHead(401, { 'Content-Type': 'application/json' });
         return res.end(JSON.stringify({ error: 'User sau parola incorecte' }));
       }
       // Verifică dacă parola introdusă corespunde cu hash-ul din baza de date
-      const match = verifyPassword(password, result.rows[0].password_hash);
+      const match = verifyPassword(password, user.password_hash);
       if (!match) {
         res.writeHead(401, { 'Content-Type': 'application/json' });
         return res.end(JSON.stringify({ error: 'User sau parola incorecte' }));
       }
       // Dacă autentificarea reușește, generează un token JWT cu datele userului
-      const token = jwt.sign(
-        { userId: result.rows[0].id, username, role: result.rows[0].role },
-        JWT_SECRET,
-        { expiresIn: '2h' }
-      );
+      const token = createJWT(username);
       // Trimite răspuns cu succes, userId și token-ul JWT
       res.writeHead(200, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify({ message: 'Login reusit', userId: result.rows[0].id, token }));
+      res.end(JSON.stringify({ message: 'Login reusit', userId: user.id, token }));
     } catch (e) {
       // Dacă apare o eroare la interogarea bazei de date sau altceva, răspunde cu 500
       res.writeHead(500, { 'Content-Type': 'application/json' });

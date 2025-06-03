@@ -1,4 +1,3 @@
-
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     username VARCHAR(100) UNIQUE NOT NULL,
@@ -32,6 +31,7 @@ CREATE TABLE resources (
     source_id INTEGER,
     import_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     view_count INTEGER DEFAULT 0,
+    keywords TEXT,
     FOREIGN KEY (source_id) REFERENCES user_sources(id) ON DELETE SET NULL
 );
 
@@ -41,6 +41,7 @@ CREATE TABLE user_preferences (
     user_id INTEGER,
     topic VARCHAR(100),
     weight DECIMAL(3,1) DEFAULT 1.0,
+    resource_type TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
     UNIQUE(user_id, topic)
