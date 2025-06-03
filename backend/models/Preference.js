@@ -3,7 +3,8 @@ const pool = require('../config/database');
 const UserPreference = {
   async getByUser(userId) {
     const result = await pool.query(
-      `SELECT id, resource_type, topic FROM user_preferences WHERE user_id = $1`,
+      `SELECT id, user_id, resource_type, topic, weight, created_at
+       FROM user_preferences WHERE user_id = $1`,
       [userId]
     );
     return result.rows;

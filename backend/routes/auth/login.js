@@ -52,7 +52,7 @@ async function handleLogin(req, res) {
         return res.end(JSON.stringify({ error: 'User sau parola incorecte' }));
       }
       // Dacă autentificarea reușește, generează un token JWT cu datele userului
-      const token = createJWT(username);
+      const token = createJWT({ id: user.id, username: user.username });
       // Trimite răspuns cu succes, userId și token-ul JWT
       res.writeHead(200, { 'Content-Type': 'application/json' });
       res.end(JSON.stringify({ message: 'Login reusit', userId: user.id, token }));
