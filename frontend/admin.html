@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <title>Panou Admin - ReT</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <h1>Panou Administrator</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="admin.html">Admin</a>
+      <a href="#" id="logout">Logout</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="admin-actions">
+      <h2>Resurse colectate</h2>
+      <div id="resource-list" class="feed-grid"></div>
+    </section>
+
+    <section class="admin-add">
+      <h2>Adaugă resursă manual</h2>
+      <form id="addResourceForm">
+        <input type="text" id="title" placeholder="Titlu" required>
+        <input type="url" id="url" placeholder="URL" required>
+        <select id="type">
+          <option value="news">Știre</option>
+          <option value="video">Video</option>
+          <option value="image">Imagine</option>
+          <option value="document">Document</option>
+        </select>
+        <button type="submit">Adaugă</button>
+        <p id="admin-message"></p>
+      </form>
+    </section>
+  </main>
+
+  <script src="js/admin.js"></script>
+</body>
+</html>

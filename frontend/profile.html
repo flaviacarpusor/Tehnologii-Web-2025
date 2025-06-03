@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <title>Profil utilizator</title>
+  <link rel="stylesheet" href="css/profile.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="index.html">Acasă</a>
+      <a href="profile.html">Profil</a>
+      <a href="#" id="logout">Logout</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="profile-container">
+      <h2>Profilul meu</h2>
+      <div id="profile-info">
+        <p><strong>Nume utilizator:</strong> <span id="username"></span></p>
+        <p><strong>Email:</strong> <span id="email"></span></p>
+        <p><strong>Rol:</strong> <span id="role"></span></p>
+      </div>
+
+      <h3>Schimbă parola</h3>
+      <form id="changePasswordForm">
+        <input type="password" id="oldPassword" placeholder="Parola veche" required>
+        <input type="password" id="newPassword" placeholder="Parola nouă" required>
+        <button type="submit">Schimbă parola</button>
+        <p id="password-message"></p>
+      </form>
+    </section>
+  </main>
+
+  <script src="js/profile.js"></script>
+</body>
+</html>

@@ -3,23 +3,38 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>ReT - Home</title>
+  <title>ReT – Recomandări resurse</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <header><h1>ReT - Resource Recommender</h1></header>
-  <main id="app">
+  <header>
+    <h1>ReT – Resource Recommender</h1>
     <nav>
       <a href="login.html">Login</a> |
       <a href="register.html">Register</a> |
-      <a href="profile.html">Profile</a> |
+      <a href="profile.html">Profil</a> |
       <a href="admin.html">Admin</a>
     </nav>
-    <section id="content">
-      <!-- aici vom injecta lista de resurse -->
+  </header>
+
+  <main>
+    <section id="filters">
+      <input type="text" id="topic" placeholder="Subiect (ex: inteligență artificială)">
+      <select id="type">
+        <option value="">Toate tipurile</option>
+        <option value="news">Știri</option>
+        <option value="video">Video</option>
+        <option value="image">Imagini</option>
+        <option value="document">Documente</option>
+      </select>
+      <button id="loadNewsBtn">Recomandă</button>
+    </section>
+
+    <section id="results" class="feed-grid">
+      <!-- articolele vor fi afișate aici -->
     </section>
   </main>
-  <script src="js/api.js"></script>
+
   <script src="js/main.js"></script>
 </body>
 </html>

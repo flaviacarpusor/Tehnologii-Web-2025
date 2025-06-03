@@ -1,12 +1,231 @@
+/* Baza */
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
+  font-family: Arial, sans-serif;
+  background: #f5f5f5;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background: #1f1f1f;
+  color: white;
+  padding: 1em;
+  text-align: center;
+}
+
+header h1 {
+  font-size: 1.8em;
+  margin: 0;
+}
+
+nav {
+  margin-top: 0.5em;
+}
+
+nav a {
+  color: #ffcc00;
+  margin: 0 0.5em;
+  text-decoration: none;
+}
+
+main {
+  max-width: 1000px;
+  margin: 2em auto;
+  padding: 0 1em;
+}
+
+/* Filtrare */
+#filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5em;
+  margin-bottom: 1.5em;
+  justify-content: center;
+}
+
+#filters input, #filters select, #filters button {
+  padding: 0.5em;
+  font-size: 1em;
+  min-width: 150px;
+}
+
+/* Feeduri */
+.feed-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.news-card {
+  background: white;
+  padding: 1em;
+  border-left: 5px solid #0077cc;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.news-card h3 {
+  margin: 0 0 0.5em;
+}
+
+.news-card a {
+  color: #0077cc;
+  word-break: break-word;
+  text-decoration: none;
+}
+
+#status-message {
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 1em;
+}
+
+#loader {
+  margin-top: 2em;
+}
+
+/* Login Styles */
+.login-container {
+  max-width: 400px;
+  margin: 5em auto;
+  background: white;
+  padding: 2em;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.login-container h2 {
+  margin-bottom: 1em;
+}
+
+.login-container input {
+  display: block;
+  width: 100%;
+  padding: 0.7em;
+  margin-bottom: 1em;
+  font-size: 1em;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.login-container button {
+  background: #0077cc;
+  color: white;
+  padding: 0.8em 2em;
+  font-size: 1em;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.login-container button:hover {
+  background: #005fa3;
+}
+
+.error-message {
+  color: red;
+  font-size: 0.9em;
+}
+
+/* Admin Actions */
+.admin-actions, .admin-add {
+  margin: 2em auto;
+  background: white;
+  padding: 1.5em;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+  max-width: 900px;
+}
+
+.admin-actions h2, .admin-add h2 {
+  margin-top: 0;
+}
+
+#addResourceForm input, #addResourceForm select, #addResourceForm button {
+  padding: 0.5em;
+  margin: 0.5em 0;
+  width: 100%;
+  font-size: 1em;
+}
+
+/* Profil utilizator */
+.profile-container {
+  max-width: 600px;
+  margin: 2em auto;
+  background: white;
+  padding: 2em;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+#profile-info p {
+  font-size: 1.1em;
+  margin: 0.5em 0;
+}
+
+#changePasswordForm {
+  margin-top: 2em;
+}
+
+#changePasswordForm input {
+  display: block;
+  width: 100%;
+  padding: 0.5em;
+  margin-bottom: 1em;
+  font-size: 1em;
+}
+
+#changePasswordForm button {
+  background: #0077cc;
+  color: white;
+  padding: 0.8em 2em;
+  font-size: 1em;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#password-message {
+  margin-top: 1em;
+  color: green;
+  font-weight: bold;
+}
+
+/* Responsive Design */
+@media (min-width: 700px) {
+  .feed-grid {
+    flex-direction: row;
+    flex-wrap: wrap;
   }
-  header {
-    background: #333;
-    color: #fff;
-    padding: 1rem;
-    text-align: center;
+
+  .news-card {
+    flex: 1 1 calc(50% - 1em);
   }
-  
+}
+
+@media (max-width: 600px) {
+  header h1 {
+    font-size: 1.2em;
+  }
+
+  nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25em;
+  }
+
+  nav a {
+    display: block;
+    margin: 0.2em 0;
+  }
+
+  #filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  #filters input, #filters select, #filters button {
+    width: 100%;
+  }
+}

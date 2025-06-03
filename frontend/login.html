@@ -1,14 +1,26 @@
 <!DOCTYPE html>
 <html lang="ro">
-<head><meta charset="UTF-8"><title>Login</title></head>
+<head>
+  <meta charset="UTF-8">
+  <title>Login - ReT</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/style.css">
+</head>
 <body>
-  <h2>Login</h2>
-  <form id="login-form">
-    <input name="username" placeholder="Username" required>
-    <input name="password" type="password" placeholder="Parolă" required>
-    <button type="submit">Login</button>
-  </form>
-  <div id="msg"></div>
-  <script src="js/main.js"></script>
+  <main class="login-container">
+    <h2>Autentificare</h2>
+    <form id="loginForm">
+      <label for="username">Utilizator:</label>
+      <input type="text" id="username" required>
+
+      <label for="password">Parolă:</label>
+      <input type="password" id="password" required>
+
+      <button type="submit">Conectează-te</button>
+      <p id="login-error" class="error-message"></p>
+    </form>
+  </main>
+
+  <script src="js/login.js"></script>
 </body>
 </html>
