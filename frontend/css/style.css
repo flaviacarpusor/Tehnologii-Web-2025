@@ -116,34 +116,110 @@ main {
 .login-container button:hover { background: #005fa3; }
 .error-message { color: red; font-size: 0.9em; }
 
-/* =================== PROFIL (profile.html) =================== */
+
+/* ==============================================
+   STILURI PENTRU PAGE PROFILE (profile.html)
+   ============================================== */
+
+/* Containerul principal al profilului */
 .profile-container {
+  background-color: #ffffff;
   max-width: 600px;
   margin: 2em auto;
-  background: white;
   padding: 2em;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
-#profile-info p { font-size: 1.1em; margin: 0.5em 0; }
-#changePasswordForm { margin-top: 2em; }
-#changePasswordForm input {
-  display: block;
-  width: 100%;
-  padding: 0.5em;
-  margin-bottom: 1em;
-  font-size: 1em;
+
+/* Titlul principal */
+.profile-container h2 {
+  font-size: 1.5rem;
+  text-align: center;
+  color: #222222;
+  margin-bottom: 1.5em;
 }
-#changePasswordForm button {
-  background: #0077cc;
-  color: white;
-  padding: 0.8em 2em;
-  font-size: 1em;
+
+/* Informațiile despre utilizator */
+.profile-info p {
+  font-size: 1rem;
+  margin-bottom: 0.75em;
+  color: #444444;
+}
+
+.profile-info p strong {
+  display: inline-block;
+  width: 140px;
+  color: #222222;
+}
+
+/* Linie de separare */
+.profile-container hr {
   border: none;
-  border-radius: 5px;
-  cursor: pointer;
+  height: 1px;
+  background-color: #dddddd;
+  margin: 1.5em 0;
 }
-#password-message { margin-top: 1em; color: green; font-weight: bold; }
+
+/* Secțiunea de schimbare a parolei */
+.password-change h3 {
+  font-size: 1.2rem;
+  margin-bottom: 1em;
+  color: #222222;
+  text-align: center;
+}
+
+/* Mesaj de succes / eroare sub titlu */
+.form-message {
+  margin-bottom: 1em;
+  height: 1.2em; /* Rezervă spațiu chiar dacă nu există mesaj încă */
+  text-align: center;
+}
+
+/* În momentul în care se adaugă .error sau .success */
+.form-message.error {
+  color: #cc0000;
+}
+.form-message.success {
+  color: #009900;
+}
+
+/* Formularul de schimbare parolă */
+#changePasswordForm {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75em;
+}
+
+#changePasswordForm .form-input {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 1rem;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+#changePasswordForm .form-input:focus {
+  border-color: #0066cc;
+  outline: none;
+  box-shadow: 0 0 4px rgba(0, 102, 204, 0.25);
+}
+
+#changePasswordForm .form-button {
+  padding: 12px;
+  background-color: #0066cc;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+#changePasswordForm .form-button:hover {
+  background-color: #005bb5;
+}
 
 /* =================== TABS ADMIN =================== */
 .tabs {
@@ -213,5 +289,50 @@ main {
   nav a { display: block; margin: 0.2em 0; }
   #filters { flex-direction: column; align-items: stretch; }
   #filters input, #filters select, #filters button { width: 100%; }
+}
+
+/* Header */
+.site-header {
+  background: #1f1f1f;
+  color: #fff;
+  padding: 0.5em 0;
+  margin-bottom: 2em;
+}
+.site-header .container {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1em;
+}
+.logo a {
+  color: #ffcc00;
+  font-size: 1.5em;
+  text-decoration: none;
+  font-weight: bold;
+}
+.logo .sub-logo {
+  color: #fff;
+  font-size: 0.7em;
+  font-weight: normal;
+  margin-left: 0.3em;
+}
+.main-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 1.2em;
+}
+.main-nav a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1em;
+  transition: color 0.2s;
+}
+.main-nav a:hover,
+.main-nav .active {
+  color: #ffcc00;
 }
 

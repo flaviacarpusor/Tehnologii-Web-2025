@@ -2,37 +2,69 @@
 <html lang="ro">
 <head>
   <meta charset="UTF-8">
-  <title>Profil utilizator</title>
-  <link rel="stylesheet" href="css/profile.css">
+  <title>Profil utilizator – ReT</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <header>
-    <nav>
-      <a href="index.html">Acasă</a>
-      <a href="profile.html">Profil</a>
-      <a href="#" id="logout">Logout</a>
-    </nav>
-  </header>
-
-  <main>
-    <section class="profile-container">
-      <h2>Profilul meu</h2>
-      <div id="profile-info">
-        <p><strong>Nume utilizator:</strong> <span id="username"></span></p>
-        <p><strong>Email:</strong> <span id="email"></span></p>
-        <p><strong>Rol:</strong> <span id="role"></span></p>
+  <!-- ===== HEADER COMUN ===== -->
+  <header class="site-header">
+    <div class="container">
+      <div class="logo">
+        <a href="index.html">ReT<span class="sub-logo"> – Resource Recommender</span></a>
       </div>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="index.html">Acasă</a></li>
+          <li><a href="profile.html" class="active">Profil</a></li>
+          <li><a href="logout.html">Logout</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <!-- ======================= -->
 
+  <!-- ===== CONȚINUTUL PROFILE ===== -->
+  <main class="login-container">
+    <h2>Profilul meu</h2>
+    <div class="profile-info">
+      <p><strong>Nume utilizator:</strong> <span id="profile-username"></span></p>
+      <p><strong>Email:</strong> <span id="profile-email"></span></p>
+      <p><strong>Rol:</strong> <span id="profile-role"></span></p>
+    </div>
+    <hr>
+    <div class="password-change">
       <h3>Schimbă parola</h3>
+      <div id="password-message" class="form-message"></div>
       <form id="changePasswordForm">
-        <input type="password" id="oldPassword" placeholder="Parola veche" required>
-        <input type="password" id="newPassword" placeholder="Parola nouă" required>
-        <button type="submit">Schimbă parola</button>
-        <p id="password-message"></p>
+        <input
+          type="password"
+          id="old-password"
+          name="old-password"
+          placeholder="Parola veche"
+          class="form-input"
+          required
+        >
+        <input
+          type="password"
+          id="new-password"
+          name="new-password"
+          placeholder="Parola nouă"
+          class="form-input"
+          required
+        >
+        <button type="submit" class="form-button">Schimbă parola</button>
       </form>
-    </section>
+    </div>
   </main>
+  <!-- ================================== -->
 
-  <script src="js/profile.js"></script>
+  <!-- ===== FOOTER COMUN ===== -->
+  <footer class="site-footer">
+    <div class="container">
+    </div>
+  </footer>
+  <!-- ========================= -->
+
 </body>
 </html>
