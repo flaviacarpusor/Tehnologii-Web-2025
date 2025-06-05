@@ -11,7 +11,6 @@
     <h1>Panou Administrator</h1>
     <nav>
       <a href="index.html">Home</a>
-      <a href="admin.html" class="active">Admin</a>
       <a href="#" id="logout">Logout</a>
     </nav>
   </header>
@@ -28,10 +27,19 @@
     <!-- Sectiunea RESURSE (vizibila doar cand tab-resurse e selectat) -->
     <section class="admin-section" id="section-resurse">
       <h2>Gestionare Resurse</h2>
+      <!-- Actiuni resurse -->
+      <!-- Select pentru actiuni resurse -->
+      <select id="resource-actions" style="margin-bottom:1em;">
+        <option value="list" selected>Listeaza toate resursele</option>
+        <option value="add">Adauga manual resurse</option>
+        <option value="delete">Sterge resurse</option>
+        <option value="edit">Editeaza resurse</option>
+      </select>
+
       <!-- Listare resurse -->
       <div id="resource-list"></div>
       <!-- Formular adaugare resursa -->
-      <form id="addResourceForm">
+      <form id="addResourceForm" style="display:none;">
         <h3>Adauga resursa manual</h3>
         <input type="text" id="title" placeholder="Titlu" required>
         <input type="url" id="url" placeholder="URL" required>
@@ -75,21 +83,32 @@
     <!-- Sectiunea UTILIZATORI (vizibila doar cand tab-utilizatori e selectat) -->
     <section class="admin-section" id="section-utilizatori" style="display:none;">
       <h2>Gestionare Utilizatori</h2>
+      <select id="user-actions" style="margin-bottom:1em;">
+        <option value="list" selected>Listeaza utilizatori</option>
+        <option value="delete">Stergere utilizatori</option>
+        <option value="role">Modificare roluri</option>
+      </select>
       <div id="user-list"></div>
+      <!-- Poți adăuga aici formulare pentru modificare rol sau alte acțiuni dacă vrei să fie afișate dinamic -->
+    </section>
+
+    <!-- Zona Import/Export -->
+    <section class="admin-section" id="import-export-section" style="text-align:center;">
+      <h2>Import/Export date</h2>
+      <div class="import-export-btns">
+        <button id="export-json" class="btn btn-secondary">Export JSON</button>
+        <button id="export-csv" class="btn btn-secondary">Export CSV</button>
+        <label for="import-file" class="btn btn-primary" style="margin-bottom:0;">
+          Import CSV/JSON
+          <input type="file" id="import-file" accept=".json,.csv" style="display:none;">
+        </label>
+      </div>
+      <p id="import-export-message" class="feedback"></p>
     </section>
   </main>
 
-  <script>
-    // Afiseaza sectiunea corecta in functie de tabul selectat
-    document.getElementById('tab-resurse').addEventListener('change', function() {
-      document.getElementById('section-resurse').style.display = 'block';
-      document.getElementById('section-utilizatori').style.display = 'none';
-    });
-    document.getElementById('tab-utilizatori').addEventListener('change', function() {
-      document.getElementById('section-resurse').style.display = 'none';
-      document.getElementById('section-utilizatori').style.display = 'block';
-    });
-  </script>
+  
   <script src="js/admin.js"></script>
+  <a href="index.html" class="go-home-btn" title="Mergi la pagina principala">Home</a>
 </body>
 </html>
