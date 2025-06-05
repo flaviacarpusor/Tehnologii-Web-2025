@@ -44,7 +44,7 @@ CREATE TABLE user_preferences (
     resource_type TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-    UNIQUE(user_id, topic)
+    UNIQUE(user_id, resource_type, topic)
 );
 
 

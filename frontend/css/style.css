@@ -84,7 +84,7 @@ main {
   margin-top: 2em;
 }
 
-/* Login Styles */
+/* =================== LOGIN (login.html) =================== */
 .login-container {
   max-width: 400px;
   margin: 5em auto;
@@ -94,11 +94,7 @@ main {
   box-shadow: 0 0 15px rgba(0,0,0,0.1);
   text-align: center;
 }
-
-.login-container h2 {
-  margin-bottom: 1em;
-}
-
+.login-container h2 { margin-bottom: 1em; }
 .login-container input {
   display: block;
   width: 100%;
@@ -108,7 +104,6 @@ main {
   border: 1px solid #ccc;
   border-radius: 5px;
 }
-
 .login-container button {
   background: #0077cc;
   color: white;
@@ -118,38 +113,10 @@ main {
   border-radius: 5px;
   cursor: pointer;
 }
+.login-container button:hover { background: #005fa3; }
+.error-message { color: red; font-size: 0.9em; }
 
-.login-container button:hover {
-  background: #005fa3;
-}
-
-.error-message {
-  color: red;
-  font-size: 0.9em;
-}
-
-/* Admin Actions */
-.admin-actions, .admin-add {
-  margin: 2em auto;
-  background: white;
-  padding: 1.5em;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.05);
-  max-width: 900px;
-}
-
-.admin-actions h2, .admin-add h2 {
-  margin-top: 0;
-}
-
-#addResourceForm input, #addResourceForm select, #addResourceForm button {
-  padding: 0.5em;
-  margin: 0.5em 0;
-  width: 100%;
-  font-size: 1em;
-}
-
-/* Profil utilizator */
+/* =================== PROFIL (profile.html) =================== */
 .profile-container {
   max-width: 600px;
   margin: 2em auto;
@@ -158,16 +125,8 @@ main {
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
-
-#profile-info p {
-  font-size: 1.1em;
-  margin: 0.5em 0;
-}
-
-#changePasswordForm {
-  margin-top: 2em;
-}
-
+#profile-info p { font-size: 1.1em; margin: 0.5em 0; }
+#changePasswordForm { margin-top: 2em; }
 #changePasswordForm input {
   display: block;
   width: 100%;
@@ -175,7 +134,6 @@ main {
   margin-bottom: 1em;
   font-size: 1em;
 }
-
 #changePasswordForm button {
   background: #0077cc;
   color: white;
@@ -185,47 +143,75 @@ main {
   border-radius: 5px;
   cursor: pointer;
 }
+#password-message { margin-top: 1em; color: green; font-weight: bold; }
 
-#password-message {
-  margin-top: 1em;
-  color: green;
+/* =================== TABS ADMIN =================== */
+.tabs {
+  display: flex;
+  gap: 0.5em;
+  margin: 2em 0 2em 2em;
+  align-items: center;
+}
+.tabs input[type="radio"] { margin-right: 0.3em; }
+
+/* Butoane taburi admin (Resurse/Utilizatori) */
+.tabs label {
+  font-size: 1.2em;      /* text mai mare */
+  padding: 1em 2.5em;    /* buton mai inalt si mai lat */
+  background: #eee;
+  border-radius: 8px 8px 0 0;
   font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  margin-right: 0.5em;
 }
 
-/* Responsive Design */
+.tabs input[type="radio"]:checked + label {
+  background: #0077cc;
+  color: #fff;
+}
+
+/* =================== SECTIUNI ADMIN =================== */
+.admin-section {
+  max-width: 900px;
+  margin: 0 auto 2em auto;
+  background: #fff;
+  padding: 2em;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+}
+#resource-list, #user-list {
+  margin-bottom: 2em;
+}
+
+/* =================== FORMULAR ADUGARE RESURSA =================== */
+#addResourceForm {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+  align-items: flex-end;
+}
+#addResourceForm input,
+#addResourceForm select {
+  flex: 1 1 200px;
+  padding: 0.5em;
+  font-size: 1em;
+}
+#addResourceForm button {
+  padding: 0.5em 1.5em;
+  font-size: 1em;
+}
+
+/* =================== RESPONSIVE DESIGN =================== */
 @media (min-width: 700px) {
-  .feed-grid {
-    flex-direction: row;
-    flex-wrap: wrap;
-  }
-
-  .news-card {
-    flex: 1 1 calc(50% - 1em);
-  }
+  .feed-grid { flex-direction: row; flex-wrap: wrap; }
+  .news-card { flex: 1 1 calc(50% - 1em); }
 }
-
 @media (max-width: 600px) {
-  header h1 {
-    font-size: 1.2em;
-  }
-
-  nav {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25em;
-  }
-
-  nav a {
-    display: block;
-    margin: 0.2em 0;
-  }
-
-  #filters {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  #filters input, #filters select, #filters button {
-    width: 100%;
-  }
+  header h1 { font-size: 1.2em; }
+  nav { display: flex; flex-direction: column; gap: 0.25em; }
+  nav a { display: block; margin: 0.2em 0; }
+  #filters { flex-direction: column; align-items: stretch; }
+  #filters input, #filters select, #filters button { width: 100%; }
 }
+

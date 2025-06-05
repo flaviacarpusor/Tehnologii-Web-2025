@@ -11,34 +11,85 @@
     <h1>Panou Administrator</h1>
     <nav>
       <a href="index.html">Home</a>
-      <a href="admin.html">Admin</a>
+      <a href="admin.html" class="active">Admin</a>
       <a href="#" id="logout">Logout</a>
     </nav>
   </header>
 
   <main>
-    <section class="admin-actions">
-      <h2>Resurse colectate</h2>
-      <div id="resource-list" class="feed-grid"></div>
-    </section>
+    <!-- Taburi radio pentru Resurse si Utilizatori -->
+    <div class="tabs">
+      <input type="radio" id="tab-resurse" name="tab" checked>
+      <label for="tab-resurse">Resurse</label>
+      <input type="radio" id="tab-utilizatori" name="tab">
+      <label for="tab-utilizatori">Utilizatori</label>
+    </div>
 
-    <section class="admin-add">
-      <h2>Adaugă resursă manual</h2>
+    <!-- Sectiunea RESURSE (vizibila doar cand tab-resurse e selectat) -->
+    <section class="admin-section" id="section-resurse">
+      <h2>Gestionare Resurse</h2>
+      <!-- Listare resurse -->
+      <div id="resource-list"></div>
+      <!-- Formular adaugare resursa -->
       <form id="addResourceForm">
+        <h3>Adauga resursa manual</h3>
         <input type="text" id="title" placeholder="Titlu" required>
         <input type="url" id="url" placeholder="URL" required>
         <select id="type">
-          <option value="news">Știre</option>
+          <option value="news">Stire</option>
           <option value="video">Video</option>
           <option value="image">Imagine</option>
           <option value="document">Document</option>
         </select>
-        <button type="submit">Adaugă</button>
+        <input type="text" id="description" placeholder="Descriere">
+        <input type="text" id="topic" placeholder="Topic">
+        <select id="visibility">
+          <option value="public">Public</option>
+          <option value="admin">Admin</option>
+        </select>
+        <input type="text" id="keywords" placeholder="Cuvinte cheie (virgula)">
+        <button type="submit">Adauga</button>
         <p id="admin-message"></p>
       </form>
+      <!-- Modal editare resursa (ascuns implicit) -->
+      <div id="edit-modal" class="modal" style="display:none;">
+        <div class="modal-content">
+          <span id="close-modal" style="float:right;cursor:pointer;">&times;</span>
+          <h3>Editare resursa</h3>
+          <form id="editResourceForm">
+            <input type="hidden" id="edit-id">
+            <input type="text" id="edit-title" placeholder="Titlu" required>
+            <input type="url" id="edit-url" placeholder="URL" required>
+            <select id="edit-type">
+              <option value="news">Stire</option>
+              <option value="video">Video</option>
+              <option value="image">Imagine</option>
+              <option value="document">Document</option>
+            </select>
+            <button type="submit">Salveaza</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sectiunea UTILIZATORI (vizibila doar cand tab-utilizatori e selectat) -->
+    <section class="admin-section" id="section-utilizatori" style="display:none;">
+      <h2>Gestionare Utilizatori</h2>
+      <div id="user-list"></div>
     </section>
   </main>
 
+  <script>
+    // Afiseaza sectiunea corecta in functie de tabul selectat
+    document.getElementById('tab-resurse').addEventListener('change', function() {
+      document.getElementById('section-resurse').style.display = 'block';
+      document.getElementById('section-utilizatori').style.display = 'none';
+    });
+    document.getElementById('tab-utilizatori').addEventListener('change', function() {
+      document.getElementById('section-resurse').style.display = 'none';
+      document.getElementById('section-utilizatori').style.display = 'block';
+    });
+  </script>
   <script src="js/admin.js"></script>
 </body>
 </html>

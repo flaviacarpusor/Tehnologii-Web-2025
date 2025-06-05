@@ -10,7 +10,7 @@ function createJWT(user) {
     iss: DOMAIN_NAME,
     nbf: now,
     exp: now + 2 * 60 * 60,
-    userId: user.id, // <-- asigură-te că ai userId aici!
+    userId: user.id, 
     userName: user.username
   };
   return jwt.sign(payload, JWT_SECRET, { algorithm: 'HS512' });
