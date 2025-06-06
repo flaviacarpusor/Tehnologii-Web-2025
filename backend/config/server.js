@@ -10,6 +10,12 @@ const handleVideos = require('../routes/resources/videos');
 const handleRecommendations = require('../routes/resources/recommendations');
 const handleSearch = require('../routes/resources/search');
 const handlePreferences = require('../routes/user/preferences');
+const handleProfile = require('../routes/user/profile');
+const handleChangePassword = require('../routes/user/changePassw');
+const handleExport = require('../routes/admin/export');
+const handleImport = require('../routes/admin/import');
+const handleAdminResources = require('../routes/admin/resources');
+const handleAdminUsers = require('../routes/admin/users');
 
 const PORT = process.env.PORT || 3000;
 
@@ -38,11 +44,26 @@ const server = http.createServer((req, res) => {
   } else if (req.method === 'GET' && req.url === '/resources/videos') {
     handleVideos(req, res);
   } else if (req.method === 'GET' && req.url.startsWith('/resources/recommendations')) {
-    handleRecommendations(req, res);
+    verifyJWT(req, res, (user) => handleRecommendations(req, res, user));
   } else if (req.method === 'GET' && req.url.startsWith('/resources/search')) {
     handleSearch(req, res);
   } else if (req.url.startsWith('/user/preferences')) {
     verifyJWT(req, res, (user) => handlePreferences(req, res, user));
+    // --- PROFILE ---
+  } else if (req.method === 'GET' && req.url === '/user/profile') {
+    verifyJWT(req, res, (user) => handleProfile(req, res, user));
+  } else if (req.method === 'POST' && req.url === '/user/change-password') {
+    verifyJWT(req, res, (user) => handleChangePassword(req, res, user));
+
+  // --- ADMIN ---
+  } else if (req.method === 'GET' && req.url === '/admin/export') {
+    verifyJWT(req, res, (user) => handleExport(req, res, user));
+  } else if (req.method === 'POST' && req.url === '/admin/import') {
+    verifyJWT(req, res, (user) => handleImport(req, res, user));
+  } else if (req.url.startsWith('/admin/resources')) {
+    verifyJWT(req, res, (user) => handleAdminResources(req, res, user));
+  } else if (req.url.startsWith('/admin/users')) {
+    verifyJWT(req, res, (user) => handleAdminUsers(req, res, user));
 
   } else {
     res.writeHead(404, { 'Content-Type': 'application/json' });

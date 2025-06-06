@@ -82,6 +82,25 @@ const Resource = {
       [topic]
     );
     return result.rows;
+  },
+
+  async findByTopicsAndTypes(topics, types) {
+    const result = await pool.query(
+      `SELECT id, type, title, url, description, topic, keywords, visibility, import_date
+       FROM resources
+       WHERE visibility = 'public'
+         AND topic = ANY($1)
+         AND type = ANY($2)
+       ORDER BY import_date DESC
+       LIMIT 50`,
+      [topics, types]
+    );
+    return result.rows;
+  },
+
+  async getAll() {
+    const result = await pool.query('SELECT * FROM resources');
+    return result.rows;
   }
 };
 

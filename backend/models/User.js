@@ -17,7 +17,32 @@ const User = {
       [username, email, password_hash]
     );
     return result.rows[0];
-  }
+  },
+
+  async findById(id) {
+    const result = await pool.query('SELECT * FROM users WHERE id = $1', [id]);
+    return result.rows[0];
+  },
+
+  async updatePassword(id, newHash) {
+    await pool.query(
+      'UPDATE users SET password_hash=$1 WHERE id=$2',
+      [newHash, id]
+    );
+  },
+
+  async getAll() {
+    const result = await pool.query('SELECT id, username, email, role FROM users');
+    return result.rows;
+  },
+
+  async delete(id) {
+    await pool.query('DELETE FROM users WHERE id = $1', [id]);
+  },
+
+  async updateRole(id, role) {
+    await pool.query('UPDATE users SET role = $1 WHERE id = $2', [role, id]);
+  },
 };
 
 module.exports = User;
