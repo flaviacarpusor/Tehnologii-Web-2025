@@ -1,8 +1,18 @@
 const Resource = require('../../models/Resource');
 const User = require('../../models/User');
 
+function parseCSV(csv) {
+  const lines = csv.trim().split('\n');
+  const headers = lines[0].split(',').map(h => h.trim());
+  return lines.slice(1).map(line => {
+    const values = line.split(',').map(v => v.replace(/^"|"$/g, '').replace(/""/g, '"').trim());
+    const obj = {};
+    headers.forEach((h, i) => obj[h] = values[i]);
+    return obj;
+  });
+}
+
 async function handleImport(req, res, user) {
-    
   const dbUser = await User.findById(user.userId);
   if (!dbUser || dbUser.role !== 'admin') {
     res.writeHead(403, { 'Content-Type': 'application/json' });
@@ -13,7 +23,13 @@ async function handleImport(req, res, user) {
   req.on('data', chunk => { body += chunk; });
   req.on('end', async () => {
     try {
-      const resources = JSON.parse(body);
+      let resources;
+      const contentType = req.headers['content-type'];
+      if (contentType && contentType.includes('csv')) {
+        resources = parseCSV(body);
+      } else {
+        resources = JSON.parse(body);
+      }
       if (!Array.isArray(resources)) {
         res.writeHead(400, { 'Content-Type': 'application/json' });
         return res.end(JSON.stringify({ error: 'Format invalid (trebuie array)' }));
