@@ -19,6 +19,17 @@ function parseBody(req, callback) {
   });
 }
 
+function isValidEmail(email) {
+  return typeof email === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+function isStrongPassword(password) {
+  return typeof password === 'string' &&
+    /[A-Z]/.test(password) &&
+    /[0-9]/.test(password) &&
+    /[^A-Za-z0-9]/.test(password) &&
+    password.length >= 8;
+}
+
 async function handleRegister(req, res) {
   parseBody(req, async (err, body) => {
     if (err) {
@@ -29,6 +40,14 @@ async function handleRegister(req, res) {
     if (!username || !password) {
       res.writeHead(400, { 'Content-Type': 'application/json' });
       return res.end(JSON.stringify({ error: 'username si password sunt obligatorii' }));
+    }
+    if (!isValidEmail(email)) {
+      res.writeHead(400, { 'Content-Type': 'application/json' });
+      return res.end(JSON.stringify({ error: 'Email invalid' }));
+    }
+    if (!isStrongPassword(password)) {
+      res.writeHead(400, { 'Content-Type': 'application/json' });
+      return res.end(JSON.stringify({ error: 'Parola trebuie sa aiba minim 8 caractere, o majuscula, o cifra si un caracter special' }));
     }
     const hash = hashPassword(password);
     try {
