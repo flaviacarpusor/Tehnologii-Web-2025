@@ -7,7 +7,7 @@ async function verifyAdmin(req, res, next) {
     return res.end(JSON.stringify({ error: 'Neautorizat' }));
   }
 
-  // Găsește user-ul în DB și verifică rolul
+  // Gaseste user-ul în DB și verifică rolul
   const dbUser = await User.findById(req.user.userId);
   if (!dbUser || dbUser.role !== 'admin') {
     res.writeHead(403, { 'Content-Type': 'application/json' });
