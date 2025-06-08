@@ -43,4 +43,22 @@ async function handlePreferences(req, res, user) {
   }
 }
 
-module.exports = handlePreferences;
+async function updatePreferenceWeight(req, res) {
+  try {
+    const preferenceId = req.body.preferenceId;
+    const userId = req.user.userId; // din middleware-ul de autentificare
+    const newWeight = req.body.newWeight;
+
+    if (!preferenceId || !newWeight) {
+      return res.status(400).json({ error: 'Câmpuri lipsă' });
+    }
+
+    const updatedPreference = await UserPreference.updateWeight(preferenceId, userId, newWeight);
+    res.status(200).json(updatedPreference);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Eroare server' });
+  }
+}
+
+module.exports = { handlePreferences, updatePreferenceWeight };

@@ -22,8 +22,8 @@ async function handleAdminUsers(req, res, user) {
       return res.end(JSON.stringify({ error: 'Lipsește id utilizator' }));
     }
     await User.delete(id);
-    res.writeHead(204);
-    return res.end();
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    return res.end(JSON.stringify({ message: 'Utilizator șters' }));
   }
 
   if (req.method === 'PUT') {

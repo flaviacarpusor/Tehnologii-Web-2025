@@ -3,6 +3,7 @@ const handleRegister = require('../routes/auth/register');
 const handleLogin = require('../routes/auth/login');
 const handleLogout = require('../routes/auth/logout');
 const { verifyJWT } = require('../middleware/auth');
+const { verifyAdmin } = require('../middleware/admin');
 const handleNews = require('../routes/resources/news');
 const handleDocuments = require('../routes/resources/documents');
 const handleImages = require('../routes/resources/images');
@@ -16,6 +17,7 @@ const handleExport = require('../routes/admin/export');
 const handleImport = require('../routes/admin/import');
 const handleAdminResources = require('../routes/admin/resources');
 const handleAdminUsers = require('../routes/admin/users');
+const { updateInteraction } = require('../routes/user/interactions');
 
 const PORT = process.env.PORT || 3000;
 
@@ -54,6 +56,14 @@ const server = http.createServer((req, res) => {
     verifyJWT(req, res, (user) => handleProfile(req, res, user));
   } else if (req.method === 'POST' && req.url === '/user/change-password') {
     verifyJWT(req, res, (user) => handleChangePassword(req, res, user));
+  } else if (req.method === 'POST' && req.url === '/user/preferences/update-weight') {
+    verifyJWT(req, res, () => {
+      updatePreferenceWeight(req, res);
+    });
+  } else if (req.method === 'POST' && req.url === '/user/interactions/update') {
+    verifyJWT(req, res, () => {
+      updateInteraction(req, res);
+    });
 
   // --- ADMIN ---
   } else if (req.method === 'GET' && req.url === '/admin/export') {
@@ -64,6 +74,12 @@ const server = http.createServer((req, res) => {
     verifyJWT(req, res, (user) => handleAdminResources(req, res, user));
   } else if (req.url.startsWith('/admin/users')) {
     verifyJWT(req, res, (user) => handleAdminUsers(req, res, user));
+  } else if (req.url === '/admin/resources') {
+    verifyJWT(req, res, () => {
+      verifyAdmin(req, res, () => {
+        // logica finală pentru /admin/resources
+      });
+    });
 
   } else {
     res.writeHead(404, { 'Content-Type': 'application/json' });

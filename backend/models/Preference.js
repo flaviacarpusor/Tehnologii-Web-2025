@@ -25,6 +25,17 @@ const UserPreference = {
       `DELETE FROM user_preferences WHERE id = $1 AND user_id = $2`,
       [preferenceId, userId]
     );
+  },
+
+  async updateWeight(preferenceId, userId, newWeight) {
+    const result = await pool.query(
+      `UPDATE user_preferences
+       SET weight = $1
+       WHERE id = $2 AND user_id = $3
+       RETURNING id, resource_type, topic, weight`,
+      [newWeight, preferenceId, userId]
+    );
+    return result.rows[0];
   }
 };
 
