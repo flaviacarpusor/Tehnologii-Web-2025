@@ -18,6 +18,8 @@ const handleImport = require('../routes/admin/import');
 const handleAdminResources = require('../routes/admin/resources');
 const handleAdminUsers = require('../routes/admin/users');
 const { updateInteraction } = require('../routes/user/interactions');
+const handleRss = require('../routes/rss');
+const handleAllResources = require('../routes/resources/all');
 
 const PORT = process.env.PORT || 3000;
 
@@ -78,10 +80,14 @@ const server = http.createServer((req, res) => {
   } else if (req.url === '/admin/resources') {
     verifyJWT(req, res, () => {
       verifyAdmin(req, res, () => {
-        // logica finală pentru /admin/resources
+        // logica finala pentru /admin/resources
       });
     });
 
+  } else if (req.method === 'GET' && req.url.startsWith('/resources/rss')) {
+    handleRss(req, res);
+  } else if (req.method === 'GET' && req.url === '/resources/all') {
+    handleAllResources(req, res);
   } else {
     res.writeHead(404, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify({ error: 'Not found' }));

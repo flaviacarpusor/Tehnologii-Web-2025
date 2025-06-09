@@ -99,7 +99,12 @@ const Resource = {
   },
 
   async getAll() {
-    const result = await pool.query('SELECT * FROM resources');
+    const result = await pool.query(
+      `SELECT id, type, title, url, description, topic, keywords, visibility, import_date, source
+       FROM resources
+       WHERE visibility = 'public'
+       ORDER BY import_date DESC`
+    );
     return result.rows;
   }
 };

@@ -2,24 +2,23 @@ const pool = require('../config/database');
 const Parser = require('rss-parser');
 const parser = new Parser();
 
-// === DEFINIRE SURSE RSS ===
 const feeds = [
   // STIRI
-  { type: 'news', url: 'https://rss.nytimes.com/services/xml/rss/nyt/Technology.xml', topic: 'technology' },
-  { type: 'news', url: 'https://feeds.bbci.co.uk/news/technology/rss.xml', topic: 'technology' },
-  { type: 'news', url: 'http://rss.cnn.com/rss/edition.rss', topic: 'news' },
+  { type: 'news', url: 'https://rss.nytimes.com/services/xml/rss/nyt/Technology.xml', topic: 'technology', source: 'NYTimes' },
+  { type: 'news', url: 'https://feeds.bbci.co.uk/news/technology/rss.xml', topic: 'technology', source: 'BBC' },
+  { type: 'news', url: 'http://rss.cnn.com/rss/edition.rss', topic: 'news', source: 'CNN' },
 
   // VIDEO (YouTube RSS)
-  { type: 'video', url: 'https://www.youtube.com/feeds/videos.xml?channel_id=UCBJycsmduvYEL83R_U4JriQ', topic: 'tech' },
-  { type: 'video', url: 'https://www.youtube.com/feeds/videos.xml?channel_id=UC8butISFwT-Wl7EV0hUK0BQ', topic: 'programming' },
+  { type: 'video', url: 'https://www.youtube.com/feeds/videos.xml?channel_id=UCBJycsmduvYEL83R_U4JriQ', topic: 'tech', source:'Marques Brownlee' },
+  { type: 'video', url: 'https://www.youtube.com/feeds/videos.xml?channel_id=UC8butISFwT-Wl7EV0hUK0BQ', topic: 'programming', source: 'freeCodeCamp' },
 
   // IMAGINI
-  { type: 'image', url: 'https://www.flickr.com/services/feeds/photos_public.gne?tags=nature&format=rss2', topic: 'nature' },
-  { type: 'image', url: 'https://www.flickr.com/services/feeds/photos_public.gne?tags=architecture&format=rss2', topic: 'architecture' },
+  { type: 'image', url: 'https://www.flickr.com/services/feeds/photos_public.gne?tags=nature&format=rss2', topic: 'nature', source: 'Flickr' },
+  { type: 'image', url: 'https://www.flickr.com/services/feeds/photos_public.gne?tags=architecture&format=rss2', topic: 'architecture', source: 'Flickr' },
  
   // DOCUMENTE (arXiv RSS)
-  { type: 'document', url: 'https://arxiv.org/rss/cs.AI', topic: 'artificial-intelligence' },
-  { type: 'document', url: 'https://arxiv.org/rss/cs.CR', topic: 'cryptography' }
+  { type: 'document', url: 'https://arxiv.org/rss/cs.AI', topic: 'artificial-intelligence', source: 'arXiv' },
+  { type: 'document', url: 'https://arxiv.org/rss/cs.CR', topic: 'cryptography', source: 'arXiv' }
 ];
 
 function truncate(str, n) {
@@ -67,9 +66,9 @@ async function importAll() {
         const exists = await pool.query('SELECT id FROM resources WHERE url = $1', [url]);
         if (exists.rows.length === 0 && url) {
           await pool.query(
-            `INSERT INTO resources (type, title, url, description, topic, keywords, visibility)
-             VALUES ($1, $2, $3, $4, $5, $6, 'public')`,
-            [feed.type, title, url, description, topic, keywords]
+            `INSERT INTO resources (type, title, url, description, topic, keywords, visibility, source)
+             VALUES ($1, $2, $3, $4, $5, $6, 'public', $7)`,
+            [feed.type, title, url, description, topic, keywords, feed.source]
           );
           count++;
         }
