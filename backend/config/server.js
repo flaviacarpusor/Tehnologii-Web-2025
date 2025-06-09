@@ -65,8 +65,6 @@ const server = http.createServer((req, res) => {
       updateInteraction(req, res);
     });
     // --- SOURCES---
-  } else if (req.method === 'GET' && req.url === '/user/sources') {
-    verifyJWT(req, res, (user) => handleSources(req, res, user));
 
   // --- ADMIN ---
   } else if (req.method === 'GET' && req.url === '/admin/export') {
