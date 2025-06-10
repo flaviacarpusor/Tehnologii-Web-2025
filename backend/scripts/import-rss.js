@@ -62,13 +62,14 @@ async function importAll() {
           description = truncate(item.summary || item.contentSnippet || '', 1000);
         }
 
-    
+        let importDate = item.isoDate || item.pubDate || new Date().toISOString();
+
         const exists = await pool.query('SELECT id FROM resources WHERE url = $1', [url]);
         if (exists.rows.length === 0 && url) {
           await pool.query(
-            `INSERT INTO resources (type, title, url, description, topic, keywords, visibility, source)
-             VALUES ($1, $2, $3, $4, $5, $6, 'public', $7)`,
-            [feed.type, title, url, description, topic, keywords, feed.source]
+            `INSERT INTO resources (type, title, url, description, topic, keywords, visibility, source, import_date)
+             VALUES ($1, $2, $3, $4, $5, $6, 'public', $7, $8)`,
+            [feed.type, title, url, description, topic, keywords, feed.source, importDate]
           );
           count++;
         }
