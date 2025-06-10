@@ -96,8 +96,8 @@ const server = http.createServer((req, res) => {
 
   } else if (req.method === 'GET' && req.url.startsWith('/resources/rss')) {
     handleRss(req, res);
-  } else if (req.method === 'GET' && req.url === '/resources/all') {
-    handleAllResources(req, res);
+  } else if (req.url.startsWith('/resources/all')) {
+    return handleAllResources(req, res);
   } else {
     res.writeHead(404, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify({ error: 'Not found' }));
