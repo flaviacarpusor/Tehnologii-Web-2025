@@ -3,7 +3,7 @@ const pool = require('../config/database');
 const Resource = {
   async findAllByType(type) {
     const result = await pool.query(
-      `SELECT id, type, title, url, description, topic, keywords, visibility, import_date
+      `SELECT id, type, title, url, description, topic, keywords, visibility, import_date, source, homepage
        FROM resources
        WHERE type = $1 AND visibility = 'public'
        ORDER BY import_date DESC
@@ -15,7 +15,7 @@ const Resource = {
 
   async findById(id) {
     const result = await pool.query(
-      `SELECT id, type, title, url, description, topic, keywords, visibility, import_date
+      `SELECT id, type, title, url, description, topic, keywords, visibility, import_date, source, homepage
        FROM resources
        WHERE id = $1`,
       [id]
@@ -56,7 +56,7 @@ const Resource = {
 
   async searchByKeyword(keyword) {
     const result = await pool.query(
-      `SELECT id, type, title, url, description, topic, keywords, visibility, import_date
+      `SELECT id, type, title, url, description, topic, keywords, visibility, import_date, source, homepage
        FROM resources
        WHERE visibility = 'public'
          AND (
@@ -74,19 +74,25 @@ const Resource = {
 
   async findByTopic(topic) {
     const result = await pool.query(
-      `SELECT id, type, title, url, description, topic, keywords, visibility, import_date
+      `SELECT id, type, title, url, description, topic, keywords, visibility, import_date, source, homepage
        FROM resources
-       WHERE topic = $1 AND visibility = 'public'
+       WHERE (
+          topic ILIKE $1 OR
+          title ILIKE $1 OR
+          description ILIKE $1 OR
+          keywords ILIKE $1
+        )
+        AND visibility = 'public'
        ORDER BY import_date DESC
        LIMIT 50`,
-      [topic]
+      [`%${topic}%`]
     );
     return result.rows;
   },
 
   async findByTopicsAndTypes(topics, types) {
     const result = await pool.query(
-      `SELECT id, type, title, url, description, topic, keywords, visibility, import_date
+      `SELECT id, type, title, url, description, topic, keywords, visibility, import_date, source, homepage
        FROM resources
        WHERE visibility = 'public'
          AND topic = ANY($1)
@@ -98,9 +104,28 @@ const Resource = {
     return result.rows;
   },
 
+  async findByTopicAndType(topic, type) {
+    const result = await pool.query(
+      `SELECT id, type, title, url, description, topic, keywords, visibility, import_date, source, homepage
+       FROM resources
+       WHERE (
+          topic ILIKE $1 OR
+          title ILIKE $1 OR
+          description ILIKE $1 OR
+          keywords ILIKE $1
+        )
+        AND type = $2
+        AND visibility = 'public'
+       ORDER BY import_date DESC
+       LIMIT 50`,
+      [`%${topic}%`, type]
+    );
+    return result.rows;
+  },
+
   async getAll() {
     const result = await pool.query(
-      `SELECT id, type, title, url, description, topic, keywords, visibility, import_date, source
+      `SELECT id, type, title, url, description, topic, keywords, visibility, import_date, source, homepage
        FROM resources
        WHERE visibility = 'public'
        ORDER BY import_date DESC`

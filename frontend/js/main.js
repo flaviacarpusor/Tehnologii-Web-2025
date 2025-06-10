@@ -39,17 +39,8 @@ document.addEventListener('DOMContentLoaded', () => {
       typeOrder.forEach(type => {
         if (!groupedByType[type]) return;
         Object.entries(groupedByType[type]).forEach(([source, items]) => {
-          // Filtrează doar articolele din ultimele 30 de zile
-          const recentItems = items.filter(item => {
-            const importDate = new Date(item.import_date);
-            return importDate > new Date(Date.now() - 1000 * 60 * 60 * 24 * 30);
-          });
-
-          // Dacă nu există articole recente, nu afișa coloana
-          if (recentItems.length === 0) return;
-
-          // sortează descrescător după dată
-          recentItems.sort((a, b) => new Date(b.import_date) - new Date(a.import_date));
+          //sorteaza dupa data
+          items.sort((a, b) => new Date(b.import_date) - new Date(a.import_date));
 
           const col = document.createElement('div');
           col.className = 'source-column';
@@ -63,13 +54,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
           // header cu nume sursa
           col.innerHTML = `
-            <div class="source-header" style="font-size:1.2em;font-weight:bold;margin-bottom:0.7em;background:#222;color:#fff;padding:0.5em 1em;border-radius:8px 8px 0 0;">
-              ${source} <span style="font-size:0.8em;font-weight:normal;background:#eee;color:#222;padding:0.2em 0.7em;border-radius:5px;margin-left:0.7em;">${items[0].type}</span>
+            <div class="source-header" style="font-size:1.2em;font-weight:bold;margin-bottom:0.7em;background:#222;color:#fff;padding:0.5em 1em;border-radius:8px 8px 0 0; cursor: pointer;">
+              <a href="${items[0].homepage || '#'}" target="_blank" style="color: inherit; text-decoration: none; display: block;">
+                ${source} <span style="font-size:0.8em;font-weight:normal;background:#eee;color:#222;padding:0.2em 0.7em;border-radius:5px;margin-left:0.7em;">${items[0].type}</span>
+              </a>
             </div>
             <ul class="source-list" style="list-style:none;padding:0;margin:0;max-height:400px;overflow-y:auto;"></ul>
           `;
           const ul = col.querySelector('.source-list');
-          recentItems.forEach(item => {
+          items.forEach(item => {
             const li = document.createElement('li');
             const importDate = new Date(item.import_date);
             const now = new Date();
@@ -98,10 +91,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  const btn = document.getElementById('loadNewsBtn');
-  if (btn) {
-    btn.addEventListener('click', loadResources);
-  }
+  document.getElementById('loadNewsBtn').addEventListener('click', loadResources);
 
   loadResources();
+});
+const recentItems = items.filter(item => {
+  const importDate = new Date(item.import_date);
+  return importDate > new Date(Date.now() - 1000 * 60 * 60 * 24 * 30);
 });
