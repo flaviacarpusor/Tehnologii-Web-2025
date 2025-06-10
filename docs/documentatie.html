@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="ro">
+  <head>
+    <title>DOCUMENTATIE</title>
+    <link rel="website icon" href="/images/roz.jpeg">
+    <meta charset="utf-8" >
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <link rel="stylesheet" href="documentatie.css">
+  </head>
+
+  <body>
+    <header>
+      <div class="banner">
+        <h1>Documentatie RET (Resource Recommender Web Tool)</h1>
+      </div>
+    </header>
+    <div role="contentinfo">
+      <ol role="directory">
+        <li>
+          <a href="#abstract"><span>1. </span>Abstract</a>
+        </li>
+        <li>
+          <a href="#introduction"><span>2. </span>Introducere</a>
+        </li>
+        <li>
+          <a href="#structure"><span>3. </span>Structura</a>
+          <ol role="directory">
+            <li>
+              <a href="#Root"><span> 3.1 </span>Elementul head</a>
+            </li>
+            <li>
+              <a href="#article"><span>3.2 </span>Articole si sectiuni</a>
+            </li>
+            <li>
+              <a href="#hunk"><span>3.3 </span>Elemente</a>
+              <ol role="directory">
+                <li>
+                  <a href="#inline"><span>3.3.1 </span>Elemente Inline</a>
+                </li>
+              </ol>
+              <ol role="directory"></ol>
+            </li>
+            <li>
+              <a href="#atribute"><span>3.4 </span>Atribute utilizate</a>
+            </li>
+            <li>
+              <a href="#clase"><span>3.5 </span>Clase utilizate</a>
+            </li>
+          </ol>
+        </li>
+
+        <li>
+          <a href="#tehnologii"><span>4. </span>Tehnologii utilizate</a>
+        </li>
+        <li>
+          <a href="#ghid"><span>5. </span>Ghid de utilizare</a>
+        </li>
+        <li>
+          <a href="#diagrama"><span>6. </span>Diagrama aplicatiei</a>
+        </li>
+        <li>
+          <a href="#bibliografie"><span>7. </span>Bibliografie</a>
+        </li>
+      </ol>
+    </div>
+    <div role="contentinfo">
+      <dl>
+        <dt>Autori</dt>
+        <dd>Carpusor Flavia <br>Moglan Andreea-Elena</dd>
+      </dl>
+    </div>
+
+
+    <section id="abstract" role="doc-introduction">
+      <h2>Abstract</h2>
+      <p>
+        Proiectul  <b>ReT(Resource Recommender Web Tool)</b> este o aplicație web de tip mash-up care furnizează și recomandă utilizatorilor colecții de resurse (știri, documente, imagini, videoclipuri etc).
+        Resursele sunt personalizate conform preferințelor utilizatorilor și sunt preluate de pe diverse site-uri web predefinite sau specificate de utilizatori.
+        Recomandările sunt disponibile și sub formă de fluxuri RSS.
+
+      </p>
+    </section>
+    <section id="introduction" role="doc-introduction">
+      <h2>Introducere</h2>
+      <p>
+        Aplicația este concepută pentru a simplifica procesul de accesare a informațiilor relevante, oferind o experiență intuitivă și ușor de utilizat. 
+        ReT integrează tehnologii moderne pentru a colecta, analiza și recomanda resurse într-un format accesibil și atractiv.
+      </p>
+      <p>
+        Asistentul nostru va ajusta sugestiile de machiaj în funcție de preferințele 
+        utilizatorilor și va cauta intr-o varietate largă de opțiuni. 
+        În plus, site-ul va fi proiectat pentru a oferi o experiență de navigare 
+        și căutare a informațiilor intuitivă și ușor de utilizat.
+        <br><br>
+        Vom menține și actualiza constant site-ul pentru a garanta că toate 
+        datele și informațiile sunt actualizate și precise. Astfel, MaWa se va 
+        dovedi a fi un instrument esențial pentru toți cei interesați de frumusețe, 
+        atât pentru publicul larg, cât și pentru profesioniștii 
+        din domeniu, simplificând procesul de aplicare a unui machiaj de calitate.
+      </p>
+      <p>Obiectivele noastre:</p>
+      <ul>
+        <li>
+            <strong><b>Personalizarea resurselor: </b></strong> Adaptarea recomandărilor de machiaj în 
+            funcție de vârstă, ten și ocazie, pentru a oferi o experiență personalizată 
+            și accesibilă tuturor utilizatorilor.
+        </li>
+        <li>
+           <strong> Analiza produselor de calitate:</strong> Evaluarea și prezentarea produselor 
+            cosmetice de înaltă calitate la prețuri accesibile, cu o vizualizare 
+            clară și atractivă.
+        </li>
+        <li>
+          <strong>Integrarea datelor: </strong> Colectarea și sintetizarea datelor 
+          din diverse surse într-un format standardizat și simplu de utilizat.
+        </li>
+        <li>
+            <strong>Dezvoltarea instrumentelor de vizualizare:</strong> Crearea unei suite complexe de 
+            instrumente vizuale, incluzând diagrame și fotografii, 
+            care să permită utilizatorilor să exploreze.
+        </li>
+      </ul>
+    </section>
+    <section id="structure">
+      <h2>Structura</h2>
+      <p>
+        Pe acest site veți găsi o structură logica, împărțită în
+        șașe (șapte?) pagini principale, fiecare oferind un tip diferit de conținut și
+        funcționalitate.
+        <br><br>
+
+        Pagina principală vă va oferi o perspectivă globală
+        asupra acestui proiect, iar paginle cu diferite tipuri de machiaj 
+        va vor oferi posibiliattea de a selecta tipul de ten, categoria de varsta
+        din care faceți parte, dar si ocazia cu momentul zilei, pentru a vă ajuta să
+        vizualizați un machiaj perfect pentru dumneavastră. 
+        <br><br>
+        Pentru a vă ajuta am inclus o pagină de tutorial unde sunt prezentate
+        diferite tactici de aplicare a machiajului pentru fiecare parte a feței.
+        În plus, o pagină cu produse virale pe social media pentru a fi mereu la curent 
+        cu trendurile și pentru a descoperi produse noi.
+        <br><br>
+        Toate aceste pagini au o structură armonioasă și sunt ușor de navigat, pentru a vă ajuta să
+        accesați rapid și eficient informațiile de care aveți nevoie.
+      </p>
+    </section>
+    <section id="Root">
+      <h3>Elementul head</h3>
+      <p>Sectiunea head contine:</p>
+      <ul>
+        <li>
+          Titlul paginii, care apare in partea de sus a ferestrei de navigare a
+          browser-ului.
+        </li>
+        <li>
+          Pictograma care apare in bara de adrese sau in lista de file a
+          browser-ului.
+        </li>
+        <li>
+          O indicatie ca documentul foloseste encoding-ul UTF-8, care suporta
+          caracterele din mai multe limbi si scrieri.
+        </li>
+        <li>
+         Pentru style am folosit un link către pagina de css destinata paginii principale, si un link pentru
+         un anumit tip de scris.
+        </li>
+      </ul>
+      <pre><code>
+          &lt;head>
+          &lt;title>PAGINA-PRINCIPALA&lt;/title>
+          &lt;link rel="website icon" href="/images/profil.jpg" >
+          &lt;link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
+          &lt;meta charset="UTF-8" >
+          &lt;link rel="stylesheet" href="/css/style2.css" >
+          &lt;/head>
+        </code></pre>
+    </section>
+    <section id="article">
+      <h3>Article</h3>
+      <p>
+        Tag-ul &lt;section> este utilizat pentru a împărți conținutul paginii în
+        secțiuni mai mici și mai ușor de gestionat, ceea ce face mai ușoară
+        organizarea și structurarea informațiilor și face paginile mai ușor de
+        înțeles și de navigat pentru utilizatori. Un exemplu de utilizare al
+        acestui tag in cadrul site-ului nostru este:
+      </p>
+        <pre><code>
+          &lt;section class="header">
+          ...
+          &lt;div class="clip">Makeup/div>   
+          &lt;div class="text-box">
+          &lt;h2>Your Make-up Web Assistant/h2>
+          &lt;br>
+          &lt;a href="#about" class="hero-btn">AFLA MAI MULTE/a>
+          &lt;/div>
+          &lt;/section>
+        </code></pre>
+    </section>
+    <section id="hunk">
+      <h3>Elemente</h3>
+      <p>Printre tag-urile utilizate de noi se regasesc:</p>
+      <p></p>
+      <ul>
+        <li>
+          <code> &lt;li> </code> in general, este utilizat în cadrul unei liste
+          ordonate (&lt;ol>) sau a unei liste neordonate (&lt;ul>) pentru a
+          defini fiecare element individual din lista.
+        </li>
+        
+        <li>
+          <code> &lt;p> </code> este folosit pentru a defini un paragraf de
+          text. Acesta marchează începutul și sfârșitul unui bloc de text care
+          formează un paragraf.
+        </li>
+      </ul>
+    </section>
+    <section id="inline">
+      <h3>Elemente Inline</h3>
+      <p></p>
+      <ul>
+        <li>
+          <code>&lt;a></code> este folosit pentru a crea un hyperlink către o
+          altă pagină web sau către o altă secțiune din aceeași pagină. Prin actionarea acestei comenzi, utilizatorul 
+          este redirectionat catre pagina principala.
+          <p>Un exemplu din codul nostru unde este utilizat acest tag este:</p>
+          <pre><code> &lt;a href="#about" class="hero-btn">AFLA MAI MULTE /a></code></pre>
+
+        </li>
+        <li>
+          <code>&lt;img></code> este un tag de auto-închidere și nu necesită un
+          tag de închidere separat. În general, &lt;img> are un atribut src care
+          specifică locația imaginii și un alt atribut opțional alt care descrie
+          conținutul imaginii.
+          <p>Un exemplu din codul nostru unde este utilizat acest tag este:</p>
+          <pre><code> &lt;img id="logo" src="/images/profil.jpg"  alt="Profil"></code></pre>
+
+        </li>
+      </ul>
+    </section>
+    <section id="atribute">
+      <h3>Atribute utilizate</h3>
+      <ul>
+        <li>
+          <code>atributul rel</code> este folosit pentru a specifica relația
+          dintre pagina curentă și resursa legată de ea. Acesta se folosește de
+          obicei în legătură cu elementul "a", dar poate fi folosit și cu alte
+          elemente, cum ar fi "link" sau "area".
+        </li>
+      </ul>
+      <p>
+        Exemple din codul nostru unde este utilizat acest atribut este:<br >
+        <code> &lt;link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia" > </code>
+      </p>
+      <p>
+        <code>
+          &lt;link rel="website icon" href="/images/profil.jpg">
+        </code>
+      </p>
+      <ul>
+        <li>
+          <code>atributul class </code> este utilizat pentru a specifica o clasă
+          sau o serie de clase CSS asociate cu un element HTML. Atributul
+          <code>id</code> este utilizat pentru a identifica un element specific
+          pe o pagină web. Fiecare element poate avea un singur atribut id, care
+          trebuie să fie unic pe întreaga pagină.
+        </li>
+      </ul>
+      <p>Exemple din codul nostru unde sunt utilizate aceste atribute sunt:<br>
+        <code> &lt;section class="header"></code><br> 
+        <code> &lt;div class="nav-links" id="nav-links"></code><br>
+        <code> &lt;div class="clip">Makeup></code>
+      </p>
+    </section> <!--atribute-->
+
+    <section id="clase">
+      <h3>Clase utilizate</h3>
+      <p>
+        Atributul "class" în CSS este utilizat pentru a defini o clasă de
+        stiluri care poate fi aplicată la unul sau mai multe elemente HTML.
+        <br >
+        Exemple de utilizare a acestui atribut: <br >
+      </p>
+
+      <ul>
+        <li>
+          Această clasă CSS, ".insta-icon", este destinată unui element HTML cu
+          clasa "insta-icon" care se află în interiorul unui element HTML
+          "header". <br >
+          Acest set de reguli CSS va face următoarele pentru elementul
+          "insta-icon":
+        </li>
+
+        <li>
+          Va seta lățimea maximă a elementului la 20% din lățimea elementului
+          părinte.
+        </li>
+        <li>
+          Va face înălțimea elementului "insta-icon" ajustabilă astfel încât
+          imaginea să nu se distorsioneze atunci când se redimensionează pagina.
+        </li>
+        <li>
+          Va seta elementul "insta-icon" să fie afișat ca un element bloc
+          (display: block).
+        </li>
+        <li>
+          Va seta margin-left la 50%, ceea ce va muta elementul spre dreapta,
+          jumătate din lățimea elementului părinte.
+        </li>
+      </ul>
+      <pre>
+            <code>
+                header .insta-icon {
+                max-width: 20%;
+                height: auto;
+                margin-left: 50%;
+                display: block;
+            }
+           </code></pre>
+      <ul>
+        <li>
+          Aceasta clasa definește stilurile pentru un element HTML care
+          reprezinta un buton:
+        </li>
+      </ul>
+      <pre>
+            <code>
+              .box-form .right button {
+                float: none;
+                color: #fff;
+                font-size: 16px;
+                padding: 12px 35px;
+                border-radius: 50px;
+                display: inline-block;
+                border: 0;
+                outline: 0;
+                margin-top: 15px;
+                box-shadow: 0px 4px 20px 0px #d07fe9b5;
+               /*background-image: linear-gradient(135deg,#e735d2c3 10%, hotpink 100%);*/
+                background-image: linear-gradient(to right, #e735d2c3, hotpink);
+              }
+            </code>
+           </pre>
+    </section><!--clase-->
+
+    <section id="tehnologii">
+      <h3>Tehnologii utilizate</h3>
+      <p>
+        HTML este responsabil pentru structurarea conținutului site-ului,
+        ajutând la definirea elementelor precum titlurile, textul, imagini sau
+        hyperlink-urile.
+      </p>
+      <p>
+        În ceea ce privește CSS, acesta este un limbaj de stilizare care ajută
+        la definirea stilului vizual al paginilor web, cum ar fi culorile,
+        fonturile, dimensiunile și altele.</p>
+
+      <p>Iar, JavaScript este un limbaj de programare care permite 
+        interactivitatea și funcționalitatea dinamică în paginile web.</p>
+    </section> <!--tehnologii-->
+
+    <section id="ghid">
+      <h3>Ghid de utilizare</h3>
+
+      <p>Accesarea paginii de login:</p>
+      <ol>
+        <li>În pagina de login, vei găsi un formular pentru autentificare. Completează câmpurile necesare (adresa de email și parola).
+        </li>
+        <li>Pe pagina de login, va mai fi o optiune "Nu ai un cont inca? Creeaza aici", in cazul in care esti un utilizator nou pe site.
+        </li>
+        <li>Dacă aveți deja un cont, introduceți datele de autentificare în câmpurile corespunzătoare (adresa de email și parola) și apăsați butonul "Autentificare".
+        </li>
+        <li>După ce v-ați autentificat cu succes, veți fi redirecționat către pagina principală a proiectului.
+        </li>
+        <li>Dacă nu aveți un cont și doriți să creați unul nou, apăsați butonul "Creeaza aici"</li>
+        <li>Veți fi redirecționat către pagina de înregistrare (register), unde va trebui să completați un formular cu informațiile necesare pentru crearea contului.</li>
+        <li> După ce ați terminat completatarea campurilor și ați apăsat butonul "Inregistrare" veți fi redirecționat către pagina de autentificare 
+          care mai apoi va va redircetiona catre pagina principala.</li>
+        <li> In partea de jos a paginii login, mai avem optiunea de "Resetare parola". 
+          Userul trebuie sa introduca emailul cu care si-a creat contul pentru a putea schimba parola.</li>
+      </ol>
+
+      <p>Accesarea paginii de register:</p>
+      <ol>
+        <li>Dupa ce ati apasat pe "Creeaza aici" din pagina login, ati ajuns in pagina register.
+        </li>
+        <li> Completați formularul de înregistrare cu informațiile necesare.
+        </li>
+        <li>Apăsați butonul "Inregistrare".
+        </li>
+        <li>Contul dvs. va fi creat și veți fi redirecționat către pagina de login.
+        </li>
+        <li>Utilizați adresa de email și parola create pentru a vă loga.
+        </li>
+        <li>După logare, veți fi redirecționat către pagina principală.</li>
+      </ol>
+
+      <p>Accesarea paginii principale:</p>
+      <ol>
+        <li> Accesați pagina principală.
+          Pe pagina principala veți găsi scurtături către diferite articole și
+          un meniu in header-ul paginii care conține link-uri către celelalte pagini.
+        </li>
+        <li>
+          Dacă doriți să aflați mai multe despre subiectele prezentate pe pagina
+          principală, dați click pe scurtăturile corespunzătoare sau pe
+          link-urile din meniu.
+        </li>
+        <li>
+         Din bara de navigație de sus, aveți opțiunea de a selecta paginile pentru diversele tipuri de make-up.
+         Acolo veți găsi diverse tipuri de tutoriale sub forma unor imagini si gif-uri, care prezintă 
+         informațiile într-un mod vizual atractiv.
+        </li>
+      </ol>
+
+      <p>Accesarea paginii "Contact":</p>
+      <ol>
+        <li>
+          Pentru a accesa pagina "Contact", dați click pe butonul corespunzător
+          din meniul din josul paginii principale.
+        </li>
+        <li>
+          Pe această pagină veți găsi informații de contact pentru creatorii
+          site-ului.
+        </li>
+      </ol>
+      <p>Accesarea paginii "Help":</p>
+      <ol>
+        <li>
+          Pentru a accesa "Help", dați click pe butonul corespunzător
+          din meniul din josul paginii principale.
+        </li>
+        <li>
+          Astfel veti fi redirectionat catre pagina "Tutorial" a proiectului MaWa.
+        </li>
+      </ol>
+      <p>Accesarea link-ului "Testeaza produsul":</p>
+      <ol>
+        <li>
+          Pentru a accesa "Testeaza produsul", dați click pe butonul corespunzător
+          din meniul din josul paginii principale.
+        </li>
+        <li>
+          Pe acest link veti putea testa ingrdientele oricarui produs. 
+          Acesta va duce pe pagina celor de la Acne Clinic, unde pot fi testate produsele.
+        </li>
+      </ol>
+    </section><!--ghidul-->
+
+    <section id="diagrama">
+      <h3>Diagrama aplicatiei</h3>
+      <img alt="Diagrama aplicatiei" src="diagrama.png" style="height: 50%; width: 90%">
+    </section> <!--diagrama-->
+    
+    <section id="bibliografie">
+      <h3>Bibliografie</h3>
+      <p>Site-ul utilizeaza informatii disponibile la urmatoarele adrese:</p>
+      <ul>
+        <li>
+          <a href="https://tehnologii-web.vercel.app/"
+            >https://tehnologii-web.vercel.app/</a
+          >
+        </li>
+        <li>
+          <a href="https://profs.info.uaic.ro/andrei.panu/courses/web/"
+            >https://profs.info.uaic.ro/andrei.panu/courses/web/</a
+          >
+        </li>
+        <li>
+          <a href="https://www.w3schools.com/css/default.asp"
+            >https://www.w3schools.com/css/default.asp</a>
+        </li>
+        <li>
+          <a href="https://www.w3schools.com/html/default.asp"
+            >https://www.w3schools.com/html/default.asp</a>
+        </li>
+        <li>
+          <a
+            href="https://devurls.com/"
+            >https://devurls.com/
+          </a>
+        </li>
+        <li>
+          <a href="https://github.com/gitdagray"
+            >https://github.com/gitdagray</a
+          >
+        </li>
+        <li>
+          <a
+            href="https://freecodecamp.org/"
+            >https://freecodecamp.org/
+          </a>
+        </li>
+      </ul>
+    </section>
+  </body>
+</html>
