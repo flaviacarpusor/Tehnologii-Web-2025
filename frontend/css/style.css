@@ -161,11 +161,18 @@ main {
 }
 
 /* Secțiunea de schimbare a parolei */
+.password-change {
+  display: flex;
+  flex-direction: column; /* Elemente în coloană */
+  align-items: flex-start; /* Aliniere la stânga */
+  gap: 1em; /* Spațiu între elemente */
+  margin: 0 auto; /* Centrează secțiunea pe pagină */
+  width: 100%; /* Lățime completă */
+}
+
 .password-change h3 {
-  font-size: 1.2rem;
-  margin-bottom: 1em;
-  color: #222222;
-  text-align: center;
+  margin-bottom: -2.5em;
+  text-align: left; /* Aliniere la stânga */
 }
 
 /* Mesaj de succes / eroare sub titlu */

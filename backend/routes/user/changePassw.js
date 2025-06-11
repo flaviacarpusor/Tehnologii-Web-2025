@@ -15,24 +15,32 @@ async function handleChangePassword(req, res, user) {
       const { oldPassword, newPassword } = JSON.parse(body);
       if (!oldPassword || !newPassword) {
         res.writeHead(400, { 'Content-Type': 'application/json' });
-        return res.end(JSON.stringify({ error: 'Date lipsa' }));
+        return res.end(JSON.stringify({ error: 'Parola veche și parola nouă sunt obligatorii!' }));
       }
+
       const dbUser = await User.findById(user.userId);
-      console.log('dbUser:', dbUser); 
+      if (!dbUser) {
+        res.writeHead(404, { 'Content-Type': 'application/json' });
+        return res.end(JSON.stringify({ error: 'Utilizatorul nu a fost găsit!' }));
+      }
+
       const [salt, originalHash] = dbUser.password_hash.split('$');
       const hash = crypto.pbkdf2Sync(oldPassword, salt, 10000, 64, 'sha256').toString('hex');
       if (hash !== originalHash) {
         res.writeHead(401, { 'Content-Type': 'application/json' });
-        return res.end(JSON.stringify({ error: 'Parola veche incorecta' }));
+        return res.end(JSON.stringify({ error: 'Parola veche este incorectă!' }));
       }
-      // Salveaza noua parola
+
+      // Salvează noua parolă
       const newHash = hashPassword(newPassword);
       await User.updatePassword(user.userId, newHash);
+
       res.writeHead(200, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify({ message: 'Parola schimbata cu succes' }));
+      res.end(JSON.stringify({ message: 'Parola a fost schimbată cu succes!' }));
     } catch (e) {
-      res.writeHead(400, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify({ error: 'Eroare la schimbare parola' }));
+      console.error('Eroare la schimbarea parolei:', e);
+      res.writeHead(500, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ error: 'Eroare server' }));
     }
   });
 }

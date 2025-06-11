@@ -28,7 +28,6 @@
   <main class="profile-container">
     <div style="display: flex; justify-content: space-between; align-items: flex-start;">
       <h2>Profilul meu</h2>
-      <button id="toggle-password-change" class="btn btn-secondary" style="margin-left:auto;">Schimbă parola</button>
     </div>
 
     <div class="profile-info">
@@ -37,22 +36,20 @@
       <p><strong>Rol:</strong> <span id="profile-role"></span></p>
     </div>
 
-    <div id="password-change-section" class="password-change" style="display:none; max-width:320px; margin-left:auto;">
+    <div id="password-change-section" class="password-change">
       <h3>Schimbă parola</h3>
       <div id="password-message" class="form-message"></div>
-      <form id="changePasswordForm">
+      <form id="passwordChangeForm">
         <input
           type="password"
-          id="old-password"
-          name="old-password"
+          id="oldPassword"
           placeholder="Parola veche"
           class="form-input"
           required
         >
         <input
           type="password"
-          id="new-password"
-          name="new-password"
+          id="newPassword"
           placeholder="Parola nouă"
           class="form-input"
           required

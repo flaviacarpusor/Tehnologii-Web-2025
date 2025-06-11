@@ -1,4 +1,3 @@
-
 async function loadPreferences() {
   const res = await fetch('http://localhost:3000/user/preferences', {
     headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }
@@ -81,10 +80,40 @@ async function loadProfile() {
   document.getElementById('profile-role').textContent = user.role === 'admin' ? 'Administrator' : 'Utilizator';
 }
 
-// schimb passw
-document.getElementById('toggle-password-change').onclick = function() {
-  const section = document.getElementById('password-change-section');
-  section.style.display = section.style.display === 'none' ? 'block' : 'none';
+
+
+document.getElementById('passwordChangeForm').onsubmit = async function(e) {
+  e.preventDefault();
+
+  // Accesează valorile câmpurilor din formular
+  const oldPassword = document.getElementById('oldPassword').value;
+  const newPassword = document.getElementById('newPassword').value;
+  const messageDiv = document.getElementById('password-message'); // Elementul pentru mesaj
+
+  if (!oldPassword || !newPassword) {
+    messageDiv.textContent = 'Parola veche și parola nouă sunt obligatorii!';
+    messageDiv.style.color = 'red'; // Stil pentru eroare
+    return;
+  }
+
+  const res = await fetch('http://localhost:3000/user/change-password', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + localStorage.getItem('token')
+    },
+    body: JSON.stringify({ oldPassword, newPassword })
+  });
+
+  const data = await res.json();
+  if (res.ok) {
+    messageDiv.textContent = 'Parola a fost schimbată cu succes!';
+    messageDiv.style.color = 'green'; // Stil pentru succes
+    e.target.reset(); // Resetează formularul
+  } else {
+    messageDiv.textContent = data.error || 'Eroare la schimbarea parolei!';
+    messageDiv.style.color = 'red'; // Stil pentru eroare
+  }
 };
 
 loadProfile();
