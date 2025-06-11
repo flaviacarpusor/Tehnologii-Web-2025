@@ -70,7 +70,7 @@ main {
 
 .news-card a {
   color: #0077cc;
-  word-break: break-word;
+  overflow-wrap: break-word; 
   text-decoration: none;
 }
 
@@ -462,5 +462,16 @@ main {
 }
 .source-list a:hover {
   text-decoration: underline;
+}
+
+/* style.css */
+.profile-header-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.delete-preference-btn {
+  margin-left: 1em;
 }
 

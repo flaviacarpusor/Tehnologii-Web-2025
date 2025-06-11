@@ -10,15 +10,18 @@
   <header>
     <h1>ReT – Resource Recommender</h1>
     <nav>
+      <a href="about.html">About</a>
       <a href="login.html">Login</a> |
       <a href="register.html">Register</a> |
       <a href="profile.html">Profile</a> |
       <a href="admin.html">Admin</a>
+      <a href="help.html">Help</a>
     </nav>
   </header>
 
   <main>
     <section id="filters">
+      <h2>Filtrează resurse</h2>
       <input type="text" id="topic" placeholder="Subiect (ex: inteligență artificială)">
       <select id="type">
         <option value="">Toate tipurile</option>
@@ -27,11 +30,12 @@
         <option value="image">Imagini</option>
         <option value="document">Documente</option>
       </select>
-      <button id="loadNewsBtn">Recomandă</button>
+      <button id="loadNewsBtn" type="button">Recomandă</button>
     </section>
 
     <section id="results" class="feed-grid">
-      <div id="results"></div>
+      <h2>Rezultate recomandate</h2>
+      <div></div>
     </section>
   </main>
 
