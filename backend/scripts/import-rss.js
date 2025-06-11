@@ -91,6 +91,9 @@ async function importAll() {
       console.log(` Eroare la ${feed.type} (${feed.url}): ${err.message}`);
     }
   }
+
+  await pool.end();
+  console.log('Conexiunea la baza de date a fost închisă.');
 }
 
 importAll();

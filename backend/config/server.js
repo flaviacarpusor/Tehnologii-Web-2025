@@ -68,11 +68,8 @@ const server = http.createServer((req, res) => {
     verifyJWT(req, res, (user) => handleProfile(req, res, user));
   } else if (req.method === 'POST' && req.url === '/user/change-password') {
     verifyJWT(req, res, (user) => handleChangePassword(req, res, user));
-  } else if (req.method === 'POST' && req.url === '/user/preferences/update-weight') {
-    verifyJWT(req, res, () => {
-      updatePreferenceWeight(req, res);
-    });
-  } else if (req.method === 'POST' && req.url === '/user/interactions/update') {
+  }
+  else if (req.method === 'POST' && req.url === '/user/interactions/update') {
     verifyJWT(req, res, () => {
       updateInteraction(req, res);
     });

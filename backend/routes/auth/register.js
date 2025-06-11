@@ -52,8 +52,8 @@ async function handleRegister(req, res) {
     const hash = hashPassword(password);
     try {
       const user = await User.create({ username, email, password_hash: hash });
-      res.writeHead(201, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify(user));
+      res.writeHead(201);
+      res.end();
     } catch (e) {
       if (e.code === '23505') {
         res.writeHead(409, { 'Content-Type': 'application/json' });

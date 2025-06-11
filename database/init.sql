@@ -37,14 +37,10 @@ CREATE TABLE resources (
 
 
 CREATE TABLE user_preferences (
-    id SERIAL PRIMARY KEY,
-    user_id INTEGER,
-    topic VARCHAR(100),
-    weight DECIMAL(3,1) DEFAULT 1.0,
-    resource_type TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-    UNIQUE(user_id, resource_type, topic)
+  id SERIAL PRIMARY KEY,
+  user_id INTEGER REFERENCES users(id),
+  resource_type VARCHAR(20),
+  topic VARCHAR(100)
 );
 
 

@@ -44,8 +44,39 @@
     </form>
   </main>
 
-  <script src="js/auth.js"></script>
+  <script src="js/register.js"></script>
   <a href="index.html" class="go-home-btn" title="Mergi la pagina principala">Home</a>
+
+  <script>
+    document.getElementById('registerForm').addEventListener('submit', async function(event) {
+      event.preventDefault();
+
+      const username = document.getElementById('username').value;
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirm-password').value;
+
+      if (password !== confirmPassword) {
+        document.getElementById('register-message').textContent = 'Parolele nu se potrivesc!';
+        return;
+      }
+
+      const res = await fetch('http://localhost:3000/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, email, password })
+      });
+
+      const data = await res.json();
+
+      if (data.success) {
+        document.getElementById('register-message').textContent = 'Cont creat cu succes!';
+        // Redirect or perform other actions
+      } else {
+        document.getElementById('register-message').textContent = data.message || 'Eroare la înregistrare!';
+      }
+    });
+  </script>
 
 </body>
 </html>

@@ -1,3 +1,7 @@
+if (localStorage.getItem('token')) {
+  window.location.href = 'profile.html';
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   async function loadResources() {
     const topic = document.getElementById('topic').value.trim();
