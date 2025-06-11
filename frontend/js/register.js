@@ -18,31 +18,35 @@ document.getElementById('registerForm').addEventListener('submit', async functio
 
   if (!isValidEmail(email)) {
     msg.textContent = "Email invalid!";
-    e.preventDefault();
     return;
   }
   if (!isStrongPassword(password)) {
     msg.textContent = "Parola trebuie să aibă minim 8 caractere, o majusculă, o cifră și un caracter special!";
-    e.preventDefault();
     return;
   }
   if (password !== confirm) {
     msg.textContent = "Parolele nu coincid!";
-    e.preventDefault();
     return;
   }
   msg.textContent = "";
 
-  const res = await fetch('/auth/register', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ username, email, password })
-  });
+  try {
+    const res = await fetch('http://localhost:3000/auth/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username, email, password })
+    });
 
-  const data = await res.json();
-  if (data.success) {
-    window.location.href = 'login.html';
-  } else {
-    msg.textContent = data.error || 'Eroare la înregistrare!';
+    const data = await res.json();
+    console.log('Răspuns server:', data);
+
+    if (res.ok && data.success) {
+      window.location.href = 'login.html';
+    } else {
+      msg.textContent = data.error || 'Eroare la înregistrare!';
+    }
+  } catch (err) {
+    console.error('Eroare la cererea fetch:', err);
+    msg.textContent = 'Eroare la conectarea cu serverul!';
   }
 });

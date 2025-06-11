@@ -1,6 +1,6 @@
 
 async function loadPreferences() {
-  const res = await fetch('/user/preferences', {
+  const res = await fetch('http://localhost:3000/user/preferences', {
     headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }
   });
   const prefs = await res.json();
@@ -68,7 +68,7 @@ document.getElementById('preferencesForm').onsubmit = async function(e) {
 };
 
 async function loadProfile() {
-  const res = await fetch('/user/profile', {
+  const res = await fetch('http://localhost:3000/user/profile', {
     headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }
   });
   if (!res.ok) {
