@@ -1,4 +1,38 @@
-// Afiseaza sectiunea corecta in functie de tabul selectat
+document.addEventListener('DOMContentLoaded', async () => {
+  const token = localStorage.getItem('token');
+  if (!token) {
+    window.location.href = 'login.html';
+    return;
+  }
+  try {
+    const res = await fetch('http://localhost:3000/user/profile', {
+      headers: { 'Authorization': 'Bearer ' + token }
+    });
+    if (!res.ok) {
+      window.location.href = 'login.html';
+      return;
+    }
+    const user = await res.json();
+    if (user.role !== 'admin') {
+      alert('Acces interzis! Doar adminii pot intra aici.');
+      window.location.href = 'login.html';
+    }
+  } catch (e) {
+    window.location.href = 'login.html';
+  }
+});
+
+document.querySelectorAll('a[href="admin.html"]').forEach(link => {
+  link.addEventListener('click', function(e) {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      e.preventDefault();
+      window.location.href = 'login.html';
+    }
+  });
+});
+
+
 document.getElementById('tab-resurse').addEventListener('change', function() {
   document.getElementById('section-resurse').style.display = 'block';//vizibil
   document.getElementById('section-utilizatori').style.display = 'none';//ascuns
@@ -26,3 +60,9 @@ document.getElementById('user-actions').addEventListener('change', function() {
   const select = document.getElementById('user-actions');
   document.getElementById('user-list').style.display = select.value === 'list' ? 'block' : 'none';
 })();
+
+document.getElementById('logout').addEventListener('click', function(e) {
+  e.preventDefault();
+  localStorage.removeItem('token');
+  window.location.href = 'index.html';
+});

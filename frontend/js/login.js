@@ -15,7 +15,17 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
   const data = await res.json();
   if (res.ok && data.token) {
     localStorage.setItem('token', data.token);
-    window.location.href = 'profile.html';
+
+    const profileRes = await fetch('http://localhost:3000/user/profile', {
+      headers: { 'Authorization': 'Bearer ' + data.token }
+    });
+    const profile = await profileRes.json();
+
+    if (profile.role === 'admin') {
+      window.location.href = 'admin.html';
+    } else {
+      window.location.href = 'profile.html';
+    }
   } else {
     msg.textContent = data.error || 'Eroare la autentificare!';
   }

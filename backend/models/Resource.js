@@ -131,7 +131,9 @@ const Resource = {
        ORDER BY import_date DESC`
     );
     return result.rows;
-  }
+  },
+
+
 };
 
 module.exports = Resource;
