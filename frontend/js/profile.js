@@ -116,5 +116,19 @@ document.getElementById('passwordChangeForm').onsubmit = async function(e) {
   }
 };
 
-loadProfile();
+// Verifică dacă te afli pe pagina profile.html
+if (window.location.pathname.includes('profile.html')) {
+  loadProfile();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const btnLogout = document.getElementById('logoutBtn');
+  if (!btnLogout) return;
+
+  btnLogout.addEventListener('click', (e) => {
+    e.preventDefault();
+    localStorage.removeItem('token');   // Șterge token-ul
+    window.location.replace('index.html'); // Redirecționează către pagina principală
+  });
+});
 

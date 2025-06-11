@@ -1,7 +1,3 @@
-if (localStorage.getItem('token')) {
-  window.location.href = 'profile.html';
-}
-
 document.addEventListener('DOMContentLoaded', () => {
   async function loadResources() {
     const topic = document.getElementById('topic').value.trim();
@@ -98,6 +94,25 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('loadNewsBtn').addEventListener('click', loadResources);
 
   loadResources();
+
+  // Adaugă aici logica de logout
+  const btnLogout = document.querySelector('#btnLogout');
+  if (!btnLogout) return;
+
+  btnLogout.addEventListener('click', async (e) => {
+    e.preventDefault();
+
+    localStorage.removeItem('token');
+    try {
+      await fetch('/api/logout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' }
+      });
+    } catch (_) {
+      // chiar dacă eșuează, utilizatorul tot este delogat
+    }
+    window.location.href = 'index.html';
+  });
 });
 const recentItems = items.filter(item => {
   const importDate = new Date(item.import_date);
