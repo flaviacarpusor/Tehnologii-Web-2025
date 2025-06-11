@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Profil utilizator – ReT</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -26,7 +26,7 @@
 
   <!-- ===== CONȚINUTUL PROFILE ===== -->
   <main class="profile-container">
-    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+    <div class="profile-header-flex">
       <h2>Profilul meu</h2>
     </div>
 
@@ -65,13 +65,14 @@
       <form id="preferencesForm">
         <input type="text" name="topic" placeholder="Topic preferat" required>
         <select name="resourceType" required>
+          <option value="">Alege tipul de resursă</option>
           <option value="news">Știri</option>
           <option value="video">Video</option>
           <option value="image">Imagini</option>
           <option value="document">Documente</option>
         </select>
         <button type="submit" class="form-button">Adaugă preferință</button>
-        <button type="button" id="deletePreferenceBtn" class="form-button" style="margin-left:1em;">Șterge preferința</button>
+        <button type="button" id="deletePreferenceBtn" class="form-button delete-preference-btn">Șterge preferința</button>
       </form>
     </div>
     <!-- recomandari pe baza preferintelor -->
@@ -90,7 +91,6 @@
     <div class="container">
     </div>
   </footer>
-  
   <a href="index.html" class="go-home-btn" title="Mergi la pagina principala">Home</a>
 
  <script src="js/profile.js"></script>

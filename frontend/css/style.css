@@ -70,7 +70,7 @@ main {
 
 .news-card a {
   color: #0077cc;
-  word-break: break-word;
+  overflow-wrap: break-word; 
   text-decoration: none;
 }
 
@@ -462,11 +462,5 @@ main {
 }
 .source-list a:hover {
   text-decoration: underline;
-}
-
-#password-message {
-  margin-top: 2em;
-  min-height: 1.2em;
-  text-align: center;
 }
 
