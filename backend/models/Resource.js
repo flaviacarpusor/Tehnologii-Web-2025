@@ -23,12 +23,12 @@ const Resource = {
     return result.rows[0];
   },
 
-  async create({ type, title, url, description, topic, keywords, visibility }) {
+  async create({ type, title, url, description, topic, keywords, visibility, source }) {
     const result = await pool.query(
-      `INSERT INTO resources(type, title, url, description, topic, keywords, visibility)
-       VALUES($1, $2, $3, $4, $5, $6, $7)
-       RETURNING id, type, title, url, description, topic, keywords, visibility, import_date`,
-      [type, title, url, description, topic, keywords, visibility]
+      `INSERT INTO resources(type, title, url, description, topic, keywords, visibility, source)
+       VALUES($1, $2, $3, $4, $5, $6, $7, $8)
+       RETURNING id, type, title, url, description, topic, keywords, visibility, source, import_date`,
+      [type, title, url, description, topic, keywords, visibility, source]
     );
     return result.rows[0];
   },

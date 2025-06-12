@@ -162,6 +162,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       const topic = document.getElementById('topic').value;
       const visibility = document.getElementById('visibility').value;
       const keywords = document.getElementById('keywords').value;
+      const source = document.getElementById('source').value.trim();
       const msg = document.getElementById('admin-message');
 
       msg.textContent = '';
@@ -172,14 +173,14 @@ document.addEventListener('DOMContentLoaded', async () => {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + localStorage.getItem('token')
           },
-          body: JSON.stringify({ title, url, type, description, topic, visibility, keywords })
+          body: JSON.stringify({ title, url, type, description, topic, visibility, keywords, source })
         });
         const data = await res.json();
         if (res.ok) {
           msg.textContent = 'Resursa a fost adaugata!';
           msg.style.color = 'green';
           addResourceForm.reset();
-          listAllResources(); // reincarca lista de resurse dupa adaugare
+          listAllResources(); 
         } else {
           msg.textContent = data.error || 'Eroare la adaugare!';
           msg.style.color = 'red';

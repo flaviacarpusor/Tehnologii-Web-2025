@@ -48,4 +48,9 @@ document.getElementById('registerForm').addEventListener('submit', async functio
     msg.textContent = 'Eroare la conectarea cu serverul!';
   }
 });
-  
+
+//redirect daca util e deja logat
+if (localStorage.getItem('token')) {
+  alert('Sunteți deja logat(ă)!');
+  window.location.href = 'index.html';
+}

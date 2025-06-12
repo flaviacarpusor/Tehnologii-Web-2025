@@ -53,10 +53,11 @@ async function handleAdminResources(req, res, user) {
     req.on('data', chunk => { body += chunk; });
     req.on('end', async () => {
       try {
-        const resource = JSON.parse(body);
-        const created = await Resource.create(resource);
+        const data = JSON.parse(body);
+        const { type, title, url, description, topic, keywords, visibility, source } = data;
+        const resource = await Resource.create({ type, title, url, description, topic, keywords, source, visibility });
         res.writeHead(201, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify(created));
+        res.end(JSON.stringify(resource));
       } catch (e) {
         res.writeHead(400, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ error: 'Body invalid' }));
