@@ -38,7 +38,7 @@ const User = {
   },
 
   async getAll() {
-    const result = await pool.query('SELECT id, username, email, role FROM users');
+    const result = await pool.query('SELECT id, username, email, role, created_at FROM users');
     return result.rows;
   },
 

@@ -129,11 +129,23 @@ document.addEventListener('DOMContentLoaded', async () => {
   const userActions = document.getElementById('user-actions');
   const userList = document.getElementById('user-list');
   userActions.addEventListener('change', function() {
-    userList.style.display = this.value === 'list' ? 'block' : 'none';
-    // poti adauga aici si alte actiuni pentru delete/role
+    if (this.value === 'list') {
+      userList.style.display = 'block';
+      listAllUsers();
+    } else if (this.value === 'delete') {
+      userList.style.display = 'block';
+      showDeleteUsers();
+    } else {
+      userList.style.display = 'none';
+    }
   });
   // la incarcare, seteaza vizibilitatea corecta
-  userList.style.display = userActions.value === 'list' ? 'block' : 'none';
+  userList.style.display = (userActions.value === 'list' || userActions.value === 'delete') ? 'block' : 'none';
+  if (userActions.value === 'list') {
+    listAllUsers();
+  } else if (userActions.value === 'delete') {
+    showDeleteUsers();
+  }
 
   if (addResourceForm) {
     addResourceForm.onsubmit = async function(e) {
@@ -290,4 +302,105 @@ document.addEventListener('DOMContentLoaded', async () => {
     };
     reader.readAsText(file);
   });
+
+  async function listAllUsers() {
+    const res = await fetch('http://localhost:3000/admin/users', {
+      headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }
+    });
+    const data = await res.json();
+    const userList = document.getElementById('user-list');
+    userList.innerHTML = '';
+
+    if (!Array.isArray(data) || data.length === 0) {
+      userList.innerHTML = '<p>Nu exista utilizatori.</p>';
+      return;
+    }
+
+    const table = document.createElement('table');
+    table.innerHTML = `
+      <tr>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Rol</th>
+        <th>Data creare</th>
+        <th>Actiuni</th>
+      </tr>
+    `;
+    data.forEach(user => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${user.username}</td>
+        <td>${user.email}</td>
+        <td>${user.role}</td>
+        <td>${user.created_at ? new Date(user.created_at).toLocaleString() : ''}</td>
+        <td><button class="delete-user-btn" data-id="${user.id}">Sterge</button></td>
+      `;
+      table.appendChild(tr);
+    });
+    userList.appendChild(table);
+
+    // Event listener pentru butoanele de stergere
+    userList.querySelectorAll('.delete-user-btn').forEach(btn => {
+      btn.addEventListener('click', async function() {
+        if (confirm('Sigur vrei sa stergi acest utilizator?')) {
+          await fetch(`http://localhost:3000/admin/users?id=${btn.dataset.id}`, {
+            method: 'DELETE',
+            headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }
+          });
+          listAllUsers(); // reincarca lista dupa stergere
+        }
+      });
+    });
+  }
+
+  // Functie noua pentru afisare doar cu stergere
+  async function showDeleteUsers() {
+    const res = await fetch('http://localhost:3000/admin/users', {
+      headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }
+    });
+    const data = await res.json();
+    userList.innerHTML = '';
+
+    if (!Array.isArray(data) || data.length === 0) {
+      userList.innerHTML = '<p>Nu exista utilizatori.</p>';
+      return;
+    }
+
+    const table = document.createElement('table');
+    table.innerHTML = `
+      <tr>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Rol</th>
+        <th>Data creare</th>
+        <th>Actiuni</th>
+      </tr>
+    `;
+    data.forEach(user => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${user.username}</td>
+        <td>${user.email}</td>
+        <td>${user.role}</td>
+        <td>${user.created_at ? new Date(user.created_at).toLocaleString() : ''}</td>
+        <td><button class="delete-user-btn" data-id="${user.id}">Sterge</button></td>
+      `;
+      table.appendChild(tr);
+    });
+    userList.appendChild(table);
+
+    userList.querySelectorAll('.delete-user-btn').forEach(btn => {
+      btn.addEventListener('click', async function() {
+        if (confirm('Sigur vrei sa stergi acest utilizator?')) {
+          await fetch(`http://localhost:3000/admin/users?id=${btn.dataset.id}`, {
+            method: 'DELETE',
+            headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }
+          });
+          showDeleteUsers(); // reincarca lista dupa stergere
+        }
+      });
+    });
+  }
 });
+
+
