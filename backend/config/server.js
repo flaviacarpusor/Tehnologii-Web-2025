@@ -76,7 +76,7 @@ const server = http.createServer((req, res) => {
     // --- SOURCES---
 
   // --- ADMIN ---
-  } else if (req.method === 'GET' && req.url === '/admin/export') {
+  } else if (req.method === 'GET' && req.url.startsWith('/admin/export')) {
     verifyJWT(req, res, (user) => handleExport(req, res, user));
   } else if (req.method === 'POST' && req.url === '/admin/import') {
     verifyJWT(req, res, (user) => handleImport(req, res, user));
