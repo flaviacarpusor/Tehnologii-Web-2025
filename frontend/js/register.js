@@ -42,11 +42,10 @@ document.getElementById('registerForm').addEventListener('submit', async functio
 
     if (res.ok && data.success) {
       window.location.href = 'login.html';
-    } else {
-      msg.textContent = data.error || 'Eroare la înregistrare!';
-    }
+    } 
   } catch (err) {
     console.error('Eroare la cererea fetch:', err);
     msg.textContent = 'Eroare la conectarea cu serverul!';
   }
 });
+  

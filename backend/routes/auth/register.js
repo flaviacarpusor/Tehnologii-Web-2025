@@ -20,7 +20,11 @@ function parseBody(req, callback) {
 }
 
 function isValidEmail(email) {
-  return typeof email === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  return (
+    typeof email === 'string' &&
+    email.includes('@') &&
+    email.endsWith('.com')
+  );
 }
 function isStrongPassword(password) {
   return typeof password === 'string' &&
