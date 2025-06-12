@@ -225,12 +225,34 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   }
 
-  document.getElementById('export-json').onclick = function() {
-    window.open('http://localhost:3000/admin/export?format=json', '_blank');
+  document.getElementById('export-json').onclick = async function() {
+    const res = await fetch('http://localhost:3000/admin/export?format=json', {
+      headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }
+    });
+    const blob = await res.blob();
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'resources-export.json';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    window.URL.revokeObjectURL(url);
   };
 
-  document.getElementById('export-csv').onclick = function() {
-    window.open('http://localhost:3000/admin/export?format=csv', '_blank');
+  document.getElementById('export-csv').onclick = async function() {
+    const res = await fetch('http://localhost:3000/admin/export?format=csv', {
+      headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }
+    });
+    const blob = await res.blob();
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'resources-export.csv';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    window.URL.revokeObjectURL(url);
   };
 
   document.getElementById('import-file').addEventListener('change', async function() {
