@@ -222,7 +222,19 @@ async function loadRecommendations() {
       // Punem fiecare stire ca un link in lista, ca sa poata da click userul si sa plece direct pe site-ul sursa
       items.forEach(item => {
         const li = document.createElement('li');
-        li.innerHTML = `<a href="${item.url}" target="_blank">${item.title}</a>`;
+        const importDate = new Date(item.import_date);
+        const now = new Date();
+        const diffMs = now - importDate;
+        const diffM = Math.floor(diffMs / (1000 * 60));
+        const diffH = Math.floor(diffM / 60);
+        const diffD = Math.floor(diffH / 24);
+        let timeLabel = '';
+        if (diffM < 60) timeLabel = `${diffM}m`;
+        else if (diffH < 24) timeLabel = `${diffH}h`;
+        else timeLabel = `${diffD}d`;
+
+        li.innerHTML = `<span style="color:#888;margin-right:0.5em;">${timeLabel}</span>
+          <a href="${item.url}" target="_blank">${item.title}</a>`;
         ul.appendChild(li);
       });
       // Adaugam coloana in grid
