@@ -135,6 +135,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     } else if (this.value === 'delete') {
       userList.style.display = 'block';
       showDeleteUsers();
+    } else if (this.value === 'role') {
+      userList.style.display = 'block';
+      showRoleEditUsers();
     } else {
       userList.style.display = 'none';
     }
@@ -145,6 +148,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     listAllUsers();
   } else if (userActions.value === 'delete') {
     showDeleteUsers();
+  } else if (userActions.value === 'role') {
+    showRoleEditUsers();
   }
 
   if (addResourceForm) {
@@ -308,13 +313,15 @@ document.addEventListener('DOMContentLoaded', async () => {
       headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }
     });
     const data = await res.json();
-    const userList = document.getElementById('user-list');
     userList.innerHTML = '';
 
     if (!Array.isArray(data) || data.length === 0) {
       userList.innerHTML = '<p>Nu exista utilizatori.</p>';
       return;
     }
+
+    // Verifică dacă dropdown-ul e pe "list"
+    const showActions = userActions.value !== 'list';
 
     const table = document.createElement('table');
     table.innerHTML = `
@@ -323,7 +330,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         <th>Email</th>
         <th>Rol</th>
         <th>Data creare</th>
-        <th>Actiuni</th>
+        ${showActions ? '<th>Actiuni</th>' : ''}
       </tr>
     `;
     data.forEach(user => {
@@ -333,24 +340,26 @@ document.addEventListener('DOMContentLoaded', async () => {
         <td>${user.email}</td>
         <td>${user.role}</td>
         <td>${user.created_at ? new Date(user.created_at).toLocaleString() : ''}</td>
-        <td><button class="delete-user-btn" data-id="${user.id}">Sterge</button></td>
+        ${showActions ? `<td><button class="delete-user-btn" data-id="${user.id}">Sterge</button></td>` : ''}
       `;
       table.appendChild(tr);
     });
     userList.appendChild(table);
 
-    // Event listener pentru butoanele de stergere
-    userList.querySelectorAll('.delete-user-btn').forEach(btn => {
-      btn.addEventListener('click', async function() {
-        if (confirm('Sigur vrei sa stergi acest utilizator?')) {
-          await fetch(`http://localhost:3000/admin/users?id=${btn.dataset.id}`, {
-            method: 'DELETE',
-            headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }
-          });
-          listAllUsers(); // reincarca lista dupa stergere
-        }
+    // Adaugă event listener doar dacă e cu acțiuni
+    if (showActions) {
+      userList.querySelectorAll('.delete-user-btn').forEach(btn => {
+        btn.addEventListener('click', async function() {
+          if (confirm('Sigur vrei sa stergi acest utilizator?')) {
+            await fetch(`http://localhost:3000/admin/users?id=${btn.dataset.id}`, {
+              method: 'DELETE',
+              headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }
+            });
+            listAllUsers(); // reincarca lista dupa stergere
+          }
+        });
       });
-    });
+    }
   }
 
   // Functie noua pentru afisare doar cu stergere
@@ -397,6 +406,71 @@ document.addEventListener('DOMContentLoaded', async () => {
             headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }
           });
           showDeleteUsers(); // reincarca lista dupa stergere
+        }
+      });
+    });
+  }
+
+  async function showRoleEditUsers() {
+    const res = await fetch('http://localhost:3000/admin/users', {
+      headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }
+    });
+    const data = await res.json();
+    userList.innerHTML = '';
+
+    if (!Array.isArray(data) || data.length === 0) {
+      userList.innerHTML = '<p>Nu exista utilizatori.</p>';
+      return;
+    }
+
+    const table = document.createElement('table');
+    table.innerHTML = `
+      <tr>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Rol curent</th>
+        <th>Rol nou</th>
+        <th>Actiune</th>
+      </tr>
+    `;
+    data.forEach(user => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${user.username}</td>
+        <td>${user.email}</td>
+        <td>${user.role}</td>
+        <td>
+          <select class="role-select">
+            <option value="user" ${user.role === 'user' ? 'selected' : ''}>user</option>
+            <option value="admin" ${user.role === 'admin' ? 'selected' : ''}>admin</option>
+          </select>
+        </td>
+        <td><button class="save-role-btn" data-id="${user.id}">Salvează</button></td>
+      `;
+      table.appendChild(tr);
+    });
+    userList.appendChild(table);
+
+    userList.querySelectorAll('.save-role-btn').forEach(btn => {
+      btn.addEventListener('click', async function() {
+        const userId = btn.dataset.id;
+        const newRole = btn.closest('tr').querySelector('.role-select').value;
+        const res = await fetch(`http://localhost:3000/admin/users/role`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+          },
+          body: JSON.stringify({ id: userId, role: newRole })
+        });
+        if (res.ok) {
+          btn.textContent = 'Salvat!';
+          btn.style.background = 'green';
+          setTimeout(() => { btn.textContent = 'Salvează'; btn.style.background = ''; }, 1500);
+        } else {
+          btn.textContent = 'Eroare!';
+          btn.style.background = 'red';
+          setTimeout(() => { btn.textContent = 'Salvează'; btn.style.background = ''; }, 1500);
         }
       });
     });
