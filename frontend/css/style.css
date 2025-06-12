@@ -177,8 +177,9 @@ main {
 
 /* Mesaj de succes / eroare sub titlu */
 .form-message {
+  margin-top: 2em;   /* adaugă spațiu deasupra mesajului */
   margin-bottom: 1em;
-  height: 1.2em; /* Rezervă spațiu chiar dacă nu există mesaj încă */
+  height: 1em;
   text-align: center;
 }
 

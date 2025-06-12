@@ -18,24 +18,34 @@ async function loadPreferences() {
 document.getElementById('deletePreferenceBtn').onclick = async function() {
   const topic = document.querySelector('input[name="topic"]').value;
   const resourceType = document.querySelector('select[name="resourceType"]').value;
-  
+  const msgDiv = document.getElementById('preferences-message');
+
   // Luam toate preferintele, ca sa vedem daca exista ce vrea userul sa stearga
   const res = await fetch('http://localhost:3000/user/preferences', {
     headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }
   });
   const prefs = await res.json();
-  
+
   // Cautam preferinta dupa topic si tip
   const pref = prefs.find(p => p.topic === topic && p.resource_type === resourceType);
   if (pref) {
     // Daca o gasim, o stergem din baza de date (adio, preferinta!)
-    await fetch(`http://localhost:3000/user/preferences?id=${pref.id}`, {
+    const delRes = await fetch(`http://localhost:3000/user/preferences?id=${pref.id}`, {
       method: 'DELETE',
       headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }
     });
-    loadPreferences(); // Reincarcam lista, ca sa dispara din meniu
+    if (delRes.ok) {
+      msgDiv.textContent = 'Preferința a fost ștearsă!';
+      msgDiv.style.color = 'green';
+      loadPreferences(); // Reîncarcă lista
+      loadRecommendations && loadRecommendations(); // Reîncarcă recomandările dacă există funcția
+    } else {
+      msgDiv.textContent = 'Eroare la ștergere!';
+      msgDiv.style.color = 'red';
+    }
   } else {
-    alert('Nu exista aceasta preferinta!'); // Daca nu gasim, il anuntam ca a visat
+    msgDiv.textContent = 'Nu există această preferință!';
+    msgDiv.style.color = 'red';
   }
 };
 
