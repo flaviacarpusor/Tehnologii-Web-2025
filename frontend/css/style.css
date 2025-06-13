@@ -499,3 +499,24 @@ main {
   background: #fafbfc;
 }
 
+nav ul.main-menu {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+nav ul.main-menu li a {
+  color: #ffd700; /* galben */
+  text-decoration: none;
+  font-size: 1.3em;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+nav ul.main-menu li a:hover {
+  color: #fff;
+}
+
