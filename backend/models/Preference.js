@@ -1,18 +1,18 @@
 const pool = require('../config/database');
 
-// aici avem un fel de "butoane" pentru preferintele userului, ca sa nu ne plictisim
+// model pentru preferintele userului
 const UserPreference = {
-  // ia toate preferintele unui user, ca sa stim ce-i place omului
+  // ia toate preferintele unui user
   async getByUser(userId) {
     const result = await pool.query(
       `SELECT id, user_id, resource_type, topic
        FROM user_preferences WHERE user_id = $1`,
       [userId]
     );
-    return result.rows; // returneaza lista cu preferintele, ca la supermarket
+    return result.rows;
   },
 
-  // adauga o preferinta noua, ca atunci cand descoperi ca-ti place sushi
+  // adauga o preferinta noua
   async add(userId, resourceType, topic) {
     const result = await pool.query(
       `INSERT INTO user_preferences (user_id, resource_type, topic)
@@ -20,19 +20,18 @@ const UserPreference = {
        RETURNING id, user_id, resource_type, topic`,
       [userId, resourceType, topic]
     );
-    return result.rows[0]; // returneaza preferinta proaspat adaugata, ca painea calda
+    return result.rows[0];
   },
 
-  // sterge o preferinta, gen cand te razgandesti si nu mai vrei broccoli
+  // sterge o preferinta
   async remove(userId, preferenceId) {
     await pool.query(
       `DELETE FROM user_preferences WHERE id = $1 AND user_id = $2`,
       [preferenceId, userId]
     );
-    // nu returneaza nimic, ca si cand ai aruncat la gunoi si nu te mai uiti inapoi
   },
 
-  // verifica daca userul are deja o preferinta cu acelasi topic si tip (ca sa nu stranga dubluri ca la abtibilduri)
+  // verifica daca userul are deja o preferinta cu acelasi topic si tip
   async getByUserAndTopicAndType(userId, topic, resourceType) {
     const result = await pool.query(
       `SELECT id, user_id, resource_type, topic
@@ -40,10 +39,8 @@ const UserPreference = {
        WHERE user_id = $1 AND topic = $2 AND resource_type = $3`,
       [userId, topic, resourceType]
     );
-    // daca gaseste ceva, returneaza primul (ca la loto, primul castiga), altfel returneaza null
     return result.rows[0] || null;
   },
 };
 
-// exportam ca sa poata folosi si altii minunatiile astea
 module.exports = UserPreference;

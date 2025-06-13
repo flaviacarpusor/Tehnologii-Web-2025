@@ -1,4 +1,4 @@
-// Incarca preferintele userului, ca sa stim ce-i place si ce nu suporta
+// incarca preferintele userului
 async function loadPreferences() {
   const res = await fetch('http://localhost:3000/user/preferences', {
     headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }
@@ -6,7 +6,7 @@ async function loadPreferences() {
   const prefs = await res.json();
   const ul = document.getElementById('preferences-list');
   ul.innerHTML = '';
-  // Pentru fiecare preferinta, punem un rand in lista, ca la meniul zilei
+  // pentru fiecare preferinta, adauga in lista
   prefs.forEach(pref => {
     const li = document.createElement('li');
     li.textContent = `${pref.topic} (${pref.resource_type})`;
@@ -14,22 +14,22 @@ async function loadPreferences() {
   });
 }
 
-// Cand apesi pe butonul de stergere, cauta preferanta si o sterge daca exista
+// sterge preferinta
 document.getElementById('deletePreferenceBtn').onclick = async function() {
   const topic = document.querySelector('input[name="topic"]').value;
   const resourceType = document.querySelector('select[name="resourceType"]').value;
   const msgDiv = document.getElementById('preferences-message');
 
-  // Luam toate preferintele, ca sa vedem daca exista ce vrea userul sa stearga
+  // ia toate preferintele
   const res = await fetch('http://localhost:3000/user/preferences', {
     headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }
   });
   const prefs = await res.json();
 
-  // Cautam preferinta dupa topic si tip
+  // cauta preferinta dupa topic si tip
   const pref = prefs.find(p => p.topic === topic && p.resource_type === resourceType);
   if (pref) {
-    // Daca o gasim, o stergem din baza de date (adio, preferinta!)
+    // sterge preferinta din baza de date
     const delRes = await fetch(`http://localhost:3000/user/preferences?id=${pref.id}`, {
       method: 'DELETE',
       headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }
@@ -37,8 +37,8 @@ document.getElementById('deletePreferenceBtn').onclick = async function() {
     if (delRes.ok) {
       msgDiv.textContent = 'Preferința a fost ștearsă!';
       msgDiv.style.color = 'green';
-      loadPreferences(); // Reîncarcă lista
-      loadRecommendations && loadRecommendations(); // Reîncarcă recomandările dacă există funcția
+      loadPreferences();
+      loadRecommendations && loadRecommendations();
     } else {
       msgDiv.textContent = 'Eroare la ștergere!';
       msgDiv.style.color = 'red';
@@ -49,12 +49,12 @@ document.getElementById('deletePreferenceBtn').onclick = async function() {
   }
 };
 
-// Cand userul vrea sa adauge o preferinta noua, verificam sa nu fie dublura si o adaugam
+// adauga preferinta noua
 document.getElementById('preferencesForm').onsubmit = async function(e) {
   e.preventDefault();
   const topic = this.topic.value;
   const resourceType = this.resourceType.value;
-  // Pregatim un div pentru mesaje, ca sa nu planga userul in gol
+  // pregateste div pentru mesaje
   const msgDiv = document.getElementById('preferences-message') || (() => {
     const d = document.createElement('div');
     d.id = 'preferences-message';
@@ -64,7 +64,7 @@ document.getElementById('preferencesForm').onsubmit = async function(e) {
     return d;
   })();
 
-  // Verificam daca preferinta exista deja, ca sa nu stranga dubluri ca la abtibilduri
+  // verifica daca preferinta exista deja
   const res = await fetch('http://localhost:3000/user/preferences', {
     headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }
   });
@@ -75,7 +75,7 @@ document.getElementById('preferencesForm').onsubmit = async function(e) {
     return;
   }
 
-  // Daca nu exista, trimitem POST si adaugam preferinta in baza de date
+  // adauga preferinta in baza de date
   const addRes = await fetch('http://localhost:3000/user/preferences', {
     method: 'POST',
     headers: {
@@ -89,8 +89,8 @@ document.getElementById('preferencesForm').onsubmit = async function(e) {
     msgDiv.textContent = 'Preferinta a fost adaugata cu succes!';
     msgDiv.style.color = 'green';
     this.reset();
-    loadPreferences(); // Reincarcam lista, ca sa vedem preferinta noua
-    loadRecommendations(); // Si poate primim recomandari noi
+    loadPreferences();
+    loadRecommendations();
   } else {
     const data = await addRes.json();
     msgDiv.textContent = data.error || 'Eroare la adaugare preferinta!';
@@ -98,13 +98,13 @@ document.getElementById('preferencesForm').onsubmit = async function(e) {
   }
 };
 
-// Incarca datele userului in profil, ca sa stie cine e la butoane
+// incarca datele userului in profil
 async function loadProfile() {
   const res = await fetch('http://localhost:3000/user/profile', {
     headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }
   });
   if (!res.ok) {
-    window.location.href = 'login.html'; // Daca nu e logat, il trimitem la login
+    window.location.href = 'login.html';
     return;
   }
   const user = await res.json();
@@ -113,14 +113,14 @@ async function loadProfile() {
   document.getElementById('profile-role').textContent = user.role === 'admin' ? 'Administrator' : 'Utilizator';
 }
 
-// Cand userul vrea sa-si schimbe parola, verificam si trimitem la backend
+// schimba parola
 document.getElementById('passwordChangeForm').onsubmit = async function(e) {
   e.preventDefault();
 
-  // Luam parolele din formular, ca la banc
+  // ia parolele din formular
   const oldPassword = document.getElementById('oldPassword').value;
   const newPassword = document.getElementById('newPassword').value;
-  const messageDiv = document.getElementById('password-message'); // Aici afisam mesajul
+  const messageDiv = document.getElementById('password-message');
 
   if (!oldPassword || !newPassword) {
     messageDiv.textContent = 'Parola veche si parola noua sunt obligatorii!';
@@ -128,7 +128,7 @@ document.getElementById('passwordChangeForm').onsubmit = async function(e) {
     return;
   }
 
-  // Trimitem la backend cererea de schimbare parola
+  // trimite cererea de schimbare parola
   const res = await fetch('http://localhost:3000/user/change-password', {
     method: 'POST',
     headers: {
@@ -142,33 +142,33 @@ document.getElementById('passwordChangeForm').onsubmit = async function(e) {
   if (res.ok) {
     messageDiv.textContent = 'Parola a fost schimbata cu succes!';
     messageDiv.style.color = 'green';
-    e.target.reset(); // Resetam formularul, ca sa nu ramana datele pe ecran
+    e.target.reset();
   } else {
     messageDiv.textContent = data.error || 'Eroare la schimbarea parolei!';
     messageDiv.style.color = 'red';
   }
 };
 
-// Daca suntem pe pagina de profil, incarcam automat datele userului si preferintele
+// incarcare automata profil si preferinte
 if (window.location.pathname.includes('profile.html')) {
   loadProfile();
   loadPreferences();
   loadRecommendations();
 }
 
-// Cand apesi pe logout, stergem token-ul si te trimitem acasa, ca la final de petrecere
+// logout
 document.addEventListener('DOMContentLoaded', () => {
   const btnLogout = document.getElementById('logoutBtn');
   if (!btnLogout) return;
 
   btnLogout.addEventListener('click', (e) => {
     e.preventDefault();
-    localStorage.removeItem('token');   // Stergem token-ul, ca sa nu mai poata intra nimeni
-    window.location.replace('index.html'); // Te trimitem pe prima pagina
+    localStorage.removeItem('token');
+    window.location.replace('index.html');
   });
 });
 
-// Incarca recomandarile pentru user, ca sa nu se plictiseasca
+// incarca recomandari pentru user
 async function loadRecommendations() {
   const res = await fetch('http://localhost:3000/resources/recommendations', {
     headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }
@@ -186,7 +186,7 @@ async function loadRecommendations() {
     return;
   }
 
-  // Grupam recomandarile pe tipuri, ca la rafturile din supermarket
+  // grupeaza pe tip
   const typeOrder = ['news', 'video', 'image', 'document'];
   const groupedByType = {};
   typeOrder.forEach(type => groupedByType[type] = {});
@@ -197,7 +197,7 @@ async function loadRecommendations() {
     groupedByType[item.type][item.source].push(item);
   });
 
-  // Facem gridul cu recomandari, ca pe index, dar pentru profilul userului
+  // grid recomandari
   const grid = document.createElement('div');
   grid.style.display = 'flex';
   grid.style.gap = '2em';
@@ -206,10 +206,7 @@ async function loadRecommendations() {
   typeOrder.forEach(type => {
     if (!groupedByType[type]) return;
     Object.entries(groupedByType[type]).forEach(([source, items]) => {
-      // Sortam stirile din fiecare sursa dupa data, ca sa fie cele mai noi primele
       items.sort((a, b) => new Date(b.import_date) - new Date(a.import_date));
-
-      // Facem o coloana pentru fiecare sursa, ca la rafturile din supermarket
       const col = document.createElement('div');
       col.className = 'source-column';
       col.innerHTML = `
@@ -219,7 +216,6 @@ async function loadRecommendations() {
         <ul class="source-list"></ul>
       `;
       const ul = col.querySelector('.source-list');
-      // Punem fiecare stire ca un link in lista, ca sa poata da click userul si sa plece direct pe site-ul sursa
       items.forEach(item => {
         const li = document.createElement('li');
         const importDate = new Date(item.import_date);
@@ -237,18 +233,16 @@ async function loadRecommendations() {
           <a href="${item.url}" target="_blank">${item.title}</a>`;
         ul.appendChild(li);
       });
-      // Adaugam coloana in grid
       grid.appendChild(col);
     });
   });
 
-  // La final, punem gridul in pagina, ca sa vada userul toate recomandarile lui
   results.appendChild(grid);
 }
 
-// Autentificare automata cu token de resetare, daca e cazul
+// login automat cu reset token
 document.addEventListener('DOMContentLoaded', async () => {
-  // Dacă există resetToken în URL, încearcă login automat
+  // daca exista resetToken in url, login automat
   const params = new URLSearchParams(window.location.search);
   const resetToken = params.get('resetToken');
   if (resetToken) {
@@ -261,7 +255,6 @@ document.addEventListener('DOMContentLoaded', async () => {
       const data = await res.json();
       if (res.ok && data.token) {
         localStorage.setItem('token', data.token);
-        // Șterge tokenul din URL și reîncarcă profilul ca user logat
         window.location.href = 'profile.html';
       } else {
         alert(data.error || 'Token invalid sau expirat!');

@@ -14,7 +14,7 @@ const User = {
       'SELECT * FROM users WHERE username = $1 OR email = $2',
       [username, email]
     );
-    return result.rows[0]; // Returnează utilizatorul dacă există
+    return result.rows[0]; //returneaza user daca exista
   },
 
   async create({ username, email, password_hash }) {

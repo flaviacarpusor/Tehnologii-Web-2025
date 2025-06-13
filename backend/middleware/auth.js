@@ -3,7 +3,7 @@ const crypto = require('crypto');
 const JWT_SECRET = process.env.JWT_SECRET || 'schimba_aceasta_cheie';
 const DOMAIN_NAME = "https://127.0.0.1";
 
-// Functie pentru generare JWT (de folosit la login)
+// functie pentru generare jwt (de folosit la login)
 function createJWT(user) {
   const now = Math.floor(Date.now() / 1000);
   const payload = {
@@ -17,13 +17,13 @@ function createJWT(user) {
   return jwt.sign(payload, JWT_SECRET, { algorithm: 'HS512' });
 }
 
-// Functie pentru extragere token din header
+// functie pentru extragere token din header
 function extractToken(req) {
   const authHeader = req.headers['authorization'] || req.headers['Authorization'];
   return authHeader && authHeader.split(' ')[1];
 }
 
-// Middleware pentru verificare JWT
+// middleware pentru verificare jwt
 function verifyJWT(req, res, next) {
   const token = extractToken(req);
   if (!token) {
@@ -40,6 +40,7 @@ function verifyJWT(req, res, next) {
   });
 }
 
+// functie pentru hash parola
 function hashPassword(password) {
   const salt = crypto.randomBytes(16).toString('hex');
   const hash = crypto.pbkdf2Sync(password, salt, 10000, 64, 'sha256').toString('hex');
