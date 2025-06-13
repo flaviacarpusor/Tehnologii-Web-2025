@@ -31,8 +31,3 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
     msg.textContent = data.error || 'Eroare la autentificare!';
   }
 });
-//redirect daca util e deja logat
-if (localStorage.getItem('token')) {
-  alert('Sunteți deja logat(ă)!');
-  window.location.href = 'index.html';
-}

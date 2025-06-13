@@ -49,8 +49,3 @@ document.getElementById('registerForm').addEventListener('submit', async functio
   }
 });
 
-//redirect daca util e deja logat
-if (localStorage.getItem('token')) {
-  alert('Sunteți deja logat(ă)!');
-  window.location.href = 'index.html';
-}
