@@ -14,6 +14,8 @@ const handleAdminResources = require('../routes/admin/resources');
 const handleAdminUsers = require('../routes/admin/users');
 const handleAllResources = require('../routes/resources/all');
 const { handleForgotPassword } = require('../routes/auth/forgotPassword');
+const handleRss = require('../routes/rss'); 
+const handleUserRss = require('../routes/rssUser');
 
 const PORT = process.env.PORT || 3000;
 
@@ -83,6 +85,8 @@ const server = http.createServer((req, res) => {
     handleRss(req, res);
   } else if (req.url.startsWith('/resources/all')) {
     return handleAllResources(req, res);
+  } else if (req.method === 'GET' && req.url === '/resources/rss-user') {
+    handleUserRss(req, res);
   } else {
     res.writeHead(404, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify({ error: 'Not found' }));
