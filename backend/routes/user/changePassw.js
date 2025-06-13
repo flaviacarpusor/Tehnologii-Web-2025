@@ -31,7 +31,7 @@ async function handleChangePassword(req, res, user) {
         return res.end(JSON.stringify({ error: 'Parola veche este incorectă!' }));
       }
 
-      // Salvează noua parolă
+      // salveaza noua parola
       const newHash = hashPassword(newPassword);
       await User.updatePassword(user.userId, newHash);
 

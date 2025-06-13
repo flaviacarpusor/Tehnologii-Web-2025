@@ -19,14 +19,14 @@ async function handleForgotPassword(req, res) {
         return res.end(JSON.stringify({ error: 'Email inexistent' }));
       }
 
-      // Generează o parolă temporară random
+      // genereaza o parola temporara random
       const tempPassword = crypto.randomBytes(6).toString('base64').replace(/[^a-zA-Z0-9]/g, '').slice(0, 10);
       const hash = hashPassword(tempPassword);
 
-      // Actualizează parola în baza de date
+      // actualizeaza parola in baza de date
       await User.updatePassword(user.id, hash);
 
-      // Trimite parola pe email
+      // trimite parola prin email
       const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {

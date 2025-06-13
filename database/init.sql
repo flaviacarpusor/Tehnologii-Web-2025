@@ -15,11 +15,11 @@ CREATE TABLE resources (
     description TEXT,
     topic VARCHAR(100),
     visibility VARCHAR(10) CHECK(visibility IN ('public', 'admin')) DEFAULT 'public',
-    source_id INTEGER,
     import_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     view_count INTEGER DEFAULT 0,
     keywords TEXT,
-    FOREIGN KEY (source_id) REFERENCES user_sources(id) ON DELETE SET NULL
+    source VARCHAR(100),
+    homepage TEXT
 );
 
 

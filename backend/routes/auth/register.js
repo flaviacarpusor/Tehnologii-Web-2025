@@ -58,14 +58,14 @@ async function handleRegister(req, res) {
     const hash = hashPassword(password);
 
     try {
-      // Verifică dacă username sau email există deja
+      // verifica daca mail ul sau username ul exista deja
       const existingUser = await User.findByUsernameOrEmail(username, email);
       if (existingUser) {
         res.writeHead(409, { 'Content-Type': 'application/json' });
         return res.end(JSON.stringify({ error: 'Username sau email deja folosit' }));
       }
 
-      // Creează utilizatorul
+      // creeaza utilizatorul
       const user = await User.create({ username, email, password_hash: hash });
       console.log('Utilizator creat:', user);
       res.writeHead(201, { 'Content-Type': 'application/json' });

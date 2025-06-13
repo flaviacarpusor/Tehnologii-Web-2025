@@ -3,7 +3,6 @@ const handleRegister = require('../routes/auth/register');
 const handleLogin = require('../routes/auth/login');
 const handleLogout = require('../routes/auth/logout');
 const { verifyJWT } = require('../middleware/auth');
-const { verifyAdmin } = require('../middleware/admin');
 const handleRecommendations = require('../routes/resources/recommendations');
 const { handlePreferences } = require('../routes/user/preferences');
 const handleProfile = require('../routes/user/profile');
@@ -43,30 +42,26 @@ const server = http.createServer((req, res) => {
     handleLogin(req, res);
   } else if (req.method === 'POST' && req.url === '/auth/logout') {
     withAuth(handleLogout)(req, res);
-  // --- RESETARE PAROLĂ ---
+  // --- RESETARE PAROLA ---
   } else if (req.method === 'POST' && req.url === '/auth/forgot-password') {
     handleForgotPassword(req, res);
 
   // --- RESOURCES ---
-  // ȘTERSE: /resources/news, /resources/documents, /resources/images, /resources/videos, /resources/search
   } else if (req.method === 'GET' && req.url.startsWith('/resources/recommendations')) {
     verifyJWT(req, res, (user) => handleRecommendations(req, res, user));
-  } else if (req.url.startsWith('/user/preferences')) {
+  } else if (req.url.startsWith('/resources/all')) {
+    return handleAllResources(req, res);
+  }
+  // --- PROFILE ---
+    else if (req.url.startsWith('/user/preferences')) {
     verifyJWT(req, res, (user) => handlePreferences(req, res, user));
-    // --- PROFILE ---
   } else if (req.method === 'GET' && req.url === '/user/profile') {
     verifyJWT(req, res, (user) => handleProfile(req, res, user));
   } else if (req.method === 'POST' && req.url === '/user/change-password') {
     verifyJWT(req, res, (user) => handleChangePassword(req, res, user));
   }
-  else if (req.method === 'POST' && req.url === '/user/interactions/update') {
-    verifyJWT(req, res, () => {
-      updateInteraction(req, res);
-    });
-    // --- SOURCES---
-
   // --- ADMIN ---
-  } else if (req.method === 'GET' && req.url.startsWith('/admin/export')) {
+   else if (req.method === 'GET' && req.url.startsWith('/admin/export')) {
     verifyJWT(req, res, (user) => handleExport(req, res, user));
   } else if (req.method === 'POST' && req.url === '/admin/import') {
     verifyJWT(req, res, (user) => handleImport(req, res, user));
