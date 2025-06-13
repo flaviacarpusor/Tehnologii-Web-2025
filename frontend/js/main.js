@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
     logoutLink.addEventListener('click', (e) => {
       e.preventDefault();
       localStorage.removeItem('token');
-      alert('te-ai delogat');
+      alert('Te-ai delogat de pe pagină!');
       window.location.href = 'index.html';
     });
   }
@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // nimic gasit
       if (!Array.isArray(data) || data.length === 0) {
-        results.innerHTML = '<p>nici o resursa gasita.</p>';
+        results.innerHTML = '<p>Nicio resursă  găsită.</p>';
         return;
       }
 
