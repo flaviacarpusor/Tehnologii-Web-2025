@@ -1,4 +1,31 @@
 document.addEventListener('DOMContentLoaded', () => {
+  const token = localStorage.getItem('token'); // Verificăm dacă există token-ul
+  const loginLink = document.querySelector('nav a[href="login.html"]');
+  const registerLink = document.querySelector('nav a[href="register.html"]');
+  const logoutLink = document.getElementById('logout'); // Identificăm linkul Logout
+
+  if (token) {
+    // Dacă utilizatorul este logat, ascundem linkurile Login și Register
+    if (loginLink) loginLink.style.display = 'none';
+    if (registerLink) registerLink.style.display = 'none';
+    if (logoutLink) logoutLink.style.display = 'inline-block'; // Afișăm Logout
+  } else {
+    // Dacă utilizatorul nu este logat, afișăm linkurile Login și Register
+    if (loginLink) loginLink.style.display = 'inline-block';
+    if (registerLink) registerLink.style.display = 'inline-block';
+    if (logoutLink) logoutLink.style.display = 'none'; // Ascundem Logout
+  }
+
+  // Logout logic
+  if (logoutLink) {
+    logoutLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      localStorage.removeItem('token'); // Ștergem token-ul
+      alert('Te-ai delogat cu succes!'); // Mesaj de confirmare
+      window.location.href = 'index.html'; // Redirect către pagina principală
+    });
+  }
+
   // functia magica ce incarca resursele in functie de filtrele userului
   async function loadResources() {
     const topic = document.getElementById('topic').value.trim();
@@ -103,24 +130,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // incarcam automat la deschiderea paginii, ca sa nu astepte userul
   loadResources();
-
-  // logica de logout, ca sa nu ramana nimeni logat pe vecie
-  const btnLogout = document.querySelector('#btnLogout');
-  if (!btnLogout) return;
-
-  btnLogout.addEventListener('click', async (e) => {
-    e.preventDefault();
-
-    localStorage.removeItem('token');
-    try {
-      await fetch('/api/logout', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' }
-      });
-    } catch (_) {
-      // chiar daca esueaza, utilizatorul tot este delogat
-    }
-    window.location.href = 'index.html';
-  });
 });
 

@@ -305,11 +305,37 @@ main {
   .news-card { flex: 1 1 calc(50% - 1em); }
 }
 @media (max-width: 600px) {
-  header h1 { font-size: 1.2em; }
-  nav { display: flex; flex-direction: column; gap: 0.25em; }
-  nav a { display: block; margin: 0.2em 0; }
-  #filters { flex-direction: column; align-items: stretch; }
-  #filters input, #filters select, #filters button { width: 100%; }
+  header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1em 0;
+  }
+
+  nav {
+    width: 100%;
+    text-align: center;
+  }
+
+  nav ul {
+    display: flex;
+    flex-direction: column; /* Afișează linkurile pe verticală */
+    gap: 0.5em; /* Spațiu între linkuri */
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  nav ul li {
+    display: block;
+  }
+
+  nav a {
+    font-size: 1em; /* Ajustează dimensiunea fontului */
+    padding: 0.5em 0; /* Spațiu între linkuri */
+    display: block; /* Fiecare link ocupă o linie */
+    text-align: center;
+  }
 }
 
 /* Header */
