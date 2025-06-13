@@ -14,7 +14,7 @@ async function loadPreferences() {
   });
 }
 
-// Cand apesi pe butonul de stergere, cauta preferinta si o sterge daca exista
+// Cand apesi pe butonul de stergere, cauta preferanta si o sterge daca exista
 document.getElementById('deletePreferenceBtn').onclick = async function() {
   const topic = document.querySelector('input[name="topic"]').value;
   const resourceType = document.querySelector('select[name="resourceType"]').value;
@@ -245,4 +245,33 @@ async function loadRecommendations() {
   // La final, punem gridul in pagina, ca sa vada userul toate recomandarile lui
   results.appendChild(grid);
 }
+
+// Autentificare automata cu token de resetare, daca e cazul
+document.addEventListener('DOMContentLoaded', async () => {
+  // Dacă există resetToken în URL, încearcă login automat
+  const params = new URLSearchParams(window.location.search);
+  const resetToken = params.get('resetToken');
+  if (resetToken) {
+    try {
+      const res = await fetch('http://localhost:3000/auth/reset-login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token: resetToken })
+      });
+      const data = await res.json();
+      if (res.ok && data.token) {
+        localStorage.setItem('token', data.token);
+        // Șterge tokenul din URL și reîncarcă profilul ca user logat
+        window.location.href = 'profile.html';
+      } else {
+        alert(data.error || 'Token invalid sau expirat!');
+        window.location.href = 'login.html';
+      }
+    } catch {
+      alert('Eroare la autentificare!');
+      window.location.href = 'login.html';
+    }
+  }
+});
+
 

@@ -49,6 +49,11 @@ const User = {
   async updateRole(id, role) {
     await pool.query('UPDATE users SET role = $1 WHERE id = $2', [role, id]);
   },
+
+  async findByEmail(email) {
+    const result = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
+    return result.rows[0];
+  },
 };
 
 module.exports = User;

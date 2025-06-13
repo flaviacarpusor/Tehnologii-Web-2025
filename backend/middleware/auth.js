@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
 const JWT_SECRET = process.env.JWT_SECRET || 'schimba_aceasta_cheie';
 const DOMAIN_NAME = "https://127.0.0.1";
 
@@ -39,8 +40,15 @@ function verifyJWT(req, res, next) {
   });
 }
 
+function hashPassword(password) {
+  const salt = crypto.randomBytes(16).toString('hex');
+  const hash = crypto.pbkdf2Sync(password, salt, 10000, 64, 'sha256').toString('hex');
+  return `${salt}$${hash}`;
+}
+
 module.exports = {
   createJWT,
   verifyJWT,
-  extractToken
+  extractToken,
+  hashPassword
 };

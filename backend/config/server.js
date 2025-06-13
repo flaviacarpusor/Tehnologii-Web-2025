@@ -4,12 +4,7 @@ const handleLogin = require('../routes/auth/login');
 const handleLogout = require('../routes/auth/logout');
 const { verifyJWT } = require('../middleware/auth');
 const { verifyAdmin } = require('../middleware/admin');
-const handleNews = require('../routes/resources/news');
-const handleDocuments = require('../routes/resources/documents');
-const handleImages = require('../routes/resources/images');
-const handleVideos = require('../routes/resources/videos');
 const handleRecommendations = require('../routes/resources/recommendations');
-const handleSearch = require('../routes/resources/search');
 const { handlePreferences } = require('../routes/user/preferences');
 const handleProfile = require('../routes/user/profile');
 const handleChangePassword = require('../routes/user/changePassw');
@@ -17,9 +12,8 @@ const handleExport = require('../routes/admin/export');
 const handleImport = require('../routes/admin/import');
 const handleAdminResources = require('../routes/admin/resources');
 const handleAdminUsers = require('../routes/admin/users');
-const { updateInteraction } = require('../routes/user/interactions');
-const handleRss = require('../routes/rss');
 const handleAllResources = require('../routes/resources/all');
+const { handleForgotPassword } = require('../routes/auth/forgotPassword');
 
 const PORT = process.env.PORT || 3000;
 
@@ -40,27 +34,21 @@ const server = http.createServer((req, res) => {
     return res.end();
   }
 
-    // --- AUTH ---
+  // --- AUTH ---
   if (req.method === 'POST' && req.url === '/auth/register') {
     handleRegister(req, res);
   } else if (req.method === 'POST' && req.url === '/auth/login') {
     handleLogin(req, res);
   } else if (req.method === 'POST' && req.url === '/auth/logout') {
     withAuth(handleLogout)(req, res);
+  // --- RESETARE PAROLĂ ---
+  } else if (req.method === 'POST' && req.url === '/auth/forgot-password') {
+    handleForgotPassword(req, res);
 
   // --- RESOURCES ---
-  } else if (req.method === 'GET' && req.url === '/resources/news') {
-    handleNews(req, res);
-  } else if (req.method === 'GET' && req.url === '/resources/documents') {
-    handleDocuments(req, res);
-  } else if (req.method === 'GET' && req.url === '/resources/images') {
-    handleImages(req, res);
-  } else if (req.method === 'GET' && req.url === '/resources/videos') {
-    handleVideos(req, res);
+  // ȘTERSE: /resources/news, /resources/documents, /resources/images, /resources/videos, /resources/search
   } else if (req.method === 'GET' && req.url.startsWith('/resources/recommendations')) {
     verifyJWT(req, res, (user) => handleRecommendations(req, res, user));
-  } else if (req.method === 'GET' && req.url.startsWith('/resources/search')) {
-    handleSearch(req, res);
   } else if (req.url.startsWith('/user/preferences')) {
     verifyJWT(req, res, (user) => handlePreferences(req, res, user));
     // --- PROFILE ---

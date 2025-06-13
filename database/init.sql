@@ -7,19 +7,6 @@ CREATE TABLE users (
     role VARCHAR(10) CHECK(role IN ('user', 'admin')) DEFAULT 'user'
 );
 
-
-CREATE TABLE user_sources (
-    id SERIAL PRIMARY KEY,
-    user_id INTEGER,
-    source_url VARCHAR(500) NOT NULL,
-    source_type VARCHAR(10) CHECK(source_type IN ('rss', 'api', 'web')),
-    source_name VARCHAR(200),
-    active BOOLEAN DEFAULT true,
-    last_import TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
-);
-
-
 CREATE TABLE resources (
     id SERIAL PRIMARY KEY,
     type VARCHAR(20) CHECK(type IN ('news', 'video', 'image', 'document')),
@@ -43,21 +30,7 @@ CREATE TABLE user_preferences (
   topic VARCHAR(100)
 );
 
-
-CREATE TABLE user_interactions (
-    id SERIAL PRIMARY KEY,
-    user_id INTEGER,
-    resource_id INTEGER,
-    action VARCHAR(10) CHECK(action IN ('view', 'click', 'save', 'share')),
-    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-    FOREIGN KEY (resource_id) REFERENCES resources(id) ON DELETE CASCADE
-);
-
-
 CREATE INDEX idx_resources_topic ON resources(topic);
 CREATE INDEX idx_resources_type ON resources(type);
-CREATE INDEX idx_interactions_user ON user_interactions(user_id);
-CREATE INDEX idx_preferences_user ON user_preferences(user_id);
 CREATE INDEX idx_resources_visibility ON resources(visibility);
-CREATE INDEX idx_sources_active ON user_sources(active);
+CREATE INDEX idx_preferences_user ON user_preferences(user_id);
