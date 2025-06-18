@@ -267,23 +267,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 });
 
-document.getElementById('generate-rss-btn').addEventListener('click', function() {
-  fetch('http://localhost:3000/resources/rss-user', {
-    method: 'GET',
-    headers: {
-      'Authorization': 'Bearer ' + localStorage.getItem('token')
-    }
-  })
-  .then(resp => resp.text())
-  .then(xml => {
-    const blob = new Blob([xml], { type: 'application/rss+xml' });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.download = 'ret-personal-feed.xml';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  });
-});
+
 
 

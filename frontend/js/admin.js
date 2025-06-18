@@ -111,14 +111,15 @@ document.addEventListener('DOMContentLoaded', async () => {
         <th>Data</th>
       </tr>
     `;
+    const thNames = ['Titlu', 'Tip', 'Topic', 'Vizibilitate', 'Data'];
     data.forEach(item => {
       const tr = document.createElement('tr');
       tr.innerHTML = `
-        <td>${item.title}</td>
-        <td>${item.type}</td>
-        <td>${item.topic}</td>
-        <td>${item.visibility}</td>
-        <td>${item.import_date ? new Date(item.import_date).toLocaleString() : ''}</td>
+        <td data-label="Titlu">${item.title}</td>
+        <td data-label="Tip">${item.type}</td>
+        <td data-label="Topic">${item.topic}</td>
+        <td data-label="Vizibilitate">${item.visibility}</td>
+        <td data-label="Data">${item.import_date ? new Date(item.import_date).toLocaleString() : ''}</td>
       `;
       table.appendChild(tr);
     });
@@ -321,7 +322,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       return;
     }
 
-    // Verifică dacă dropdown-ul e pe "list"
+    // Verifica daca dropdown-ul e pe "list"
     const showActions = userActions.value !== 'list';
 
     const table = document.createElement('table');
@@ -337,17 +338,17 @@ document.addEventListener('DOMContentLoaded', async () => {
     data.forEach(user => {
       const tr = document.createElement('tr');
       tr.innerHTML = `
-        <td>${user.username}</td>
-        <td>${user.email}</td>
-        <td>${user.role}</td>
-        <td>${user.created_at ? new Date(user.created_at).toLocaleString() : ''}</td>
-        ${showActions ? `<td><button class="delete-user-btn" data-id="${user.id}">Sterge</button></td>` : ''}
+        <td data-label="Username">${user.username}</td>
+        <td data-label="Email">${user.email}</td>
+        <td data-label="Rol">${user.role}</td>
+        <td data-label="Data creare">${user.created_at ? new Date(user.created_at).toLocaleString() : ''}</td>
+        ${showActions ? `<td data-label="Actiuni"><button class="delete-user-btn" data-id="${user.id}">Sterge</button></td>` : ''}
       `;
       table.appendChild(tr);
     });
     userList.appendChild(table);
 
-    // Adaugă event listener doar dacă e cu acțiuni
+    // Adauga event listener doar daca e cu actiuni
     if (showActions) {
       userList.querySelectorAll('.delete-user-btn').forEach(btn => {
         btn.addEventListener('click', async function() {
@@ -446,7 +447,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             <option value="admin" ${user.role === 'admin' ? 'selected' : ''}>admin</option>
           </select>
         </td>
-        <td><button class="save-role-btn" data-id="${user.id}">Salvează</button></td>
+        <td data-label="Actiune"><button class="save-role-btn" data-id="${user.id}">Salvează</button></td>
       `;
       table.appendChild(tr);
     });

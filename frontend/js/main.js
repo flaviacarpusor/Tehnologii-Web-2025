@@ -130,6 +130,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // incarcare automata la load
   loadResources();
+
+  const btnRss = document.getElementById('generate-rss-btn');
+  if (btnRss) {
+    btnRss.onclick = async function() {
+      const topic = document.getElementById('topic').value;
+      const type = document.getElementById('type').value;
+      let url = 'http://localhost:3000/resources/rss?';
+      if (topic) url += `topic=${encodeURIComponent(topic)}&`;
+      if (type) url += `type=${encodeURIComponent(type)}`;
+      const res = await fetch(url);
+      const xml = await res.text();
+      const blob = new Blob([xml], { type: 'application/rss+xml' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'ret-filtrat-feed.xml';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    };
+  }
 });
 
 // incarca preferintele userului

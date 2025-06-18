@@ -13,8 +13,7 @@ const handleAdminResources = require('../routes/admin/resources');
 const handleAdminUsers = require('../routes/admin/users');
 const handleAllResources = require('../routes/resources/all');
 const { handleForgotPassword } = require('../routes/auth/forgotPassword');
-const handleRss = require('../routes/rss'); 
-const handleUserRss = require('../routes/rssUser');
+const handleFilteredRss = require('../routes/rss');
 
 const PORT = process.env.PORT || 3000;
 
@@ -51,6 +50,8 @@ const server = http.createServer((req, res) => {
     verifyJWT(req, res, (user) => handleRecommendations(req, res, user));
   } else if (req.url.startsWith('/resources/all')) {
     return handleAllResources(req, res);
+  } else if (req.method === 'GET' && req.url.startsWith('/resources/rss')) {
+    handleFilteredRss(req, res);
   }
   // --- PROFILE ---
     else if (req.url.startsWith('/user/preferences')) {
@@ -69,19 +70,6 @@ const server = http.createServer((req, res) => {
     verifyJWT(req, res, (user) => handleAdminResources(req, res, user));
   } else if (req.url.startsWith('/admin/users')) {
     verifyJWT(req, res, (user) => handleAdminUsers(req, res, user));
-  } else if (req.url === '/admin/resources') {
-    verifyJWT(req, res, () => {
-      verifyAdmin(req, res, () => {
-        // logica finala pentru /admin/resources
-      });
-    });
-
-  } else if (req.method === 'GET' && req.url.startsWith('/resources/rss')) {
-    handleRss(req, res);
-  } else if (req.url.startsWith('/resources/all')) {
-    return handleAllResources(req, res);
-  } else if (req.method === 'GET' && req.url === '/resources/rss-user') {
-    handleUserRss(req, res);
   } else {
     res.writeHead(404, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify({ error: 'Not found' }));

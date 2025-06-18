@@ -202,19 +202,21 @@ main {
 }
 
 #changePasswordForm .form-button {
-  padding: 12px;
-  background-color: #0066cc;
-  color: #ffffff;
-  border: none;
-  border-radius: 4px;
-  font-size: 1rem;
-  font-weight: bold;
+  background: #fff;
+  color: #222;
+  border: 1.5px solid #aaa;
+  border-radius: 6px;
+  padding: 0.5em 1.5em;
+  font-size: 1em;
+  min-width: 150px;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: background 0.2s, border 0.2s;
+  margin-left: 0.2em;
 }
 
 #changePasswordForm .form-button:hover {
-  background-color: #005bb5;
+  background: #f7f7f7;
+  border-color: #222;
 }
 
 /* =================== TABS ADMIN (admin.html) =================== */
@@ -284,45 +286,6 @@ main {
 #addResourceForm button {
   padding: 0.5em 1.5em;
   font-size: 1em;
-}
-
-/* =================== RESPONSIVE DESIGN =================== */
-@media (min-width: 700px) {
-  .feed-grid { flex-direction: row; flex-wrap: wrap; }
-  .news-card { flex: 1 1 calc(50% - 1em); }
-}
-@media (max-width: 600px) {
-  header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 1em 0;
-  }
-
-  nav {
-    width: 100%;
-    text-align: center;
-  }
-
-  nav ul {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5em;
-    padding: 0;
-    margin: 0;
-    list-style: none;
-  }
-
-  nav ul li {
-    display: block;
-  }
-
-  nav a {
-    font-size: 1em;
-    padding: 0.5em 0;
-    display: block;
-    text-align: center;
-  }
 }
 
 /* =================== HEADER SI NAVBAR =================== */
@@ -498,4 +461,73 @@ main {
 .admin-section tr:nth-child(even) {
   background: #fafbfc;
 }
+
+/* =================== RESPONSIVE DESIGN AVANSAT =================== */
+
+/* Desktop: peste 1024px */
+@media screen and (min-width: 1024px) {
+  .feed-grid { flex-direction: row; flex-wrap: wrap; }
+  .news-card { flex: 1 1 calc(50% - 1em); }
+  .admin-section table { font-size: 1em; }
+}
+
+/* Tableta: 768px - 1023px */
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  .feed-grid { flex-direction: column; }
+  .news-card { flex: 1 1 100%; }
+  .admin-section table { font-size: 0.95em; }
+}
+
+/* Mobil: sub 767px */
+@media screen and (max-width: 767px) {
+  .feed-grid, .admin-section, .profile-container, .login-container {
+    max-width: 100vw;
+    padding: 0.5em;
+    margin: 0;
+    box-sizing: border-box;
+  }
+  .news-card, .source-column {
+    padding: 0.7em 0.5em;
+    border-radius: 6px;
+    min-width: unset;
+  }
+  .admin-section table,
+  .admin-section thead,
+  .admin-section tbody,
+  .admin-section th,
+  .admin-section td,
+  .admin-section tr {
+    display: block;
+    width: 100%;
+  }
+  .admin-section tr {
+    margin-bottom: 1em;
+    border-bottom: 2px solid #eee;
+  }
+  .admin-section th {
+    background: none;
+    color: #222;
+    font-weight: bold;
+    padding: 0.5em 0.3em;
+    border: none;
+  }
+  .admin-section td {
+    padding: 0.5em 0.3em;
+    border: none;
+    position: relative;
+    text-align: left;
+  }
+  .admin-section td:before {
+    content: attr(data-label);
+    font-weight: bold;
+    display: block;
+    color: #888;
+    margin-bottom: 0.2em;
+  }
+  .admin-section table {
+    border: none;
+    box-shadow: none;
+  }
+}
+
 
