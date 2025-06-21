@@ -1,11 +1,6 @@
 const crypto = require('crypto');
 const User = require('../../models/User');
-
-function hashPassword(password) {
-  const salt = crypto.randomBytes(16).toString('hex');
-  const hash = crypto.pbkdf2Sync(password, salt, 10000, 64, 'sha256').toString('hex');
-  return `${salt}$${hash}`;
-}
+const { hashPassword } = require('../../middleware/auth');
 
 async function handleChangePassword(req, res, user) {
   let body = '';

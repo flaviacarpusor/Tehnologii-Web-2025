@@ -1,16 +1,6 @@
-const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 const User = require('../../models/User');
-const { createJWT } = require('../../middleware/auth');
-
-const JWT_SECRET = process.env.JWT_SECRET || 'schimba_aceasta_cheie';
-
-// verifica parola cu hash
-function verifyPassword(password, stored) {
-  const [salt, originalHash] = stored.split('$');
-  const hash = crypto.pbkdf2Sync(password, salt, 10000, 64, 'sha256').toString('hex');
-  return hash === originalHash;
-}
+const { createJWT, verifyPassword } = require('../../middleware/auth');
 
 // parseaza body-ul requestului
 function parseBody(req, callback) {

@@ -47,9 +47,16 @@ function hashPassword(password) {
   return `${salt}$${hash}`;
 }
 
+function verifyPassword(password, stored) {
+  const [salt, originalHash] = stored.split('$');
+  const hash = crypto.pbkdf2Sync(password, salt, 10000, 64, 'sha256').toString('hex');
+  return hash === originalHash;
+}
+
 module.exports = {
   createJWT,
   verifyJWT,
   extractToken,
-  hashPassword
+  hashPassword,
+  verifyPassword
 };
