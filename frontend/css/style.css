@@ -532,3 +532,18 @@ main {
 }
 
 
+/* =================== HOME (index.html) PAGE STYLES =================== */
+body.home-page .site-header .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+body.home-page .logo {
+  margin-bottom: 0.5em;
+}
+body.home-page .main-nav ul {
+  justify-content: center;
+}
+
+
