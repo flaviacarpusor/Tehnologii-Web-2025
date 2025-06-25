@@ -1,498 +1,449 @@
 <!DOCTYPE html>
-<html lang="ro">
+<html lang="ro" prefix="schema: http://schema.org/">
   <head>
-    <title>DOCUMENTATIE</title>
+    <title>Documentație ReT (Resource Recommender Web Tool)</title>
     <link rel="website icon" href="/images/roz.jpeg">
-    <meta charset="utf-8" >
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <link rel="stylesheet" href="documentatie.css">
+    <meta property="schema:name" content="Documentație ReT (Resource Recommender Web Tool)">
+    <meta property="schema:author" content="Carpusor Flavia">
+    <meta property="schema:author" content="Moglan Andreea-Elena">
   </head>
-
   <body>
-    <header>
-      <div class="banner">
-        <h1>Documentatie RET (Resource Recommender Web Tool)</h1>
-      </div>
-    </header>
-    <div role="contentinfo">
-      <ol role="directory">
-        <li>
-          <a href="#abstract"><span>1. </span>Abstract</a>
-        </li>
-        <li>
-          <a href="#introduction"><span>2. </span>Introducere</a>
-        </li>
-        <li>
-          <a href="#structure"><span>3. </span>Structura</a>
-          <ol role="directory">
-            <li>
-              <a href="#Root"><span> 3.1 </span>Elementul head</a>
-            </li>
-            <li>
-              <a href="#article"><span>3.2 </span>Articole si sectiuni</a>
-            </li>
-            <li>
-              <a href="#hunk"><span>3.3 </span>Elemente</a>
-              <ol role="directory">
-                <li>
-                  <a href="#inline"><span>3.3.1 </span>Elemente Inline</a>
-                </li>
-              </ol>
-              <ol role="directory"></ol>
-            </li>
-            <li>
-              <a href="#atribute"><span>3.4 </span>Atribute utilizate</a>
-            </li>
-            <li>
-              <a href="#clase"><span>3.5 </span>Clase utilizate</a>
-            </li>
-          </ol>
-        </li>
+    <article role="doc-article" typeof="schema:ScholarlyArticle">
+      <header>
+        <div class="banner">
+          <h1 property="schema:name">Documentație ReT (Resource Recommender Web Tool)</h1>
+        </div>
+        <div role="contentinfo">
+          <dl>
+            <dt>Autori</dt>
+            <dd>
+              <span property="schema:author">Carpusor Flavia</span><br>
+              <span property="schema:author">Moglan Andreea-Elena</span>
+            </dd>
+          </dl>
+        </div>
+      </header>
 
-        <li>
-          <a href="#tehnologii"><span>4. </span>Tehnologii utilizate</a>
-        </li>
-        <li>
-          <a href="#ghid"><span>5. </span>Ghid de utilizare</a>
-        </li>
-        <li>
-          <a href="#diagrama"><span>6. </span>Diagrama aplicatiei</a>
-        </li>
-        <li>
-          <a href="#bibliografie"><span>7. </span>Bibliografie</a>
-        </li>
-      </ol>
-    </div>
-    <div role="contentinfo">
-      <dl>
-        <dt>Autori</dt>
-        <dd>Carpusor Flavia <br>Moglan Andreea-Elena</dd>
-      </dl>
-    </div>
+      <nav role="doc-toc">
+        <h2>Cuprins</h2>
+        <ol role="directory">
+          <li><a href="#abstract">1. Abstract</a></li>
+          <li><a href="#introduction">2. Introducere</a></li>
+          <li>
+            <a href="#structure">3. Structura</a>
+            <ol role="directory">
+              <li><a href="#head">3.1 Elementul head</a></li>
+              <li><a href="#articole">3.2 Articole și secțiuni</a></li>
+              <li>
+                <a href="#elemente">3.3 Elemente</a>
+                <ol role="directory">
+                  <li><a href="#inline">3.3.1 Elemente Inline</a></li>
+                </ol>
+              </li>
+              <li><a href="#atribute">3.4 Atribute utilizate</a></li>
+              <li><a href="#clase">3.5 Clase utilizate</a></li>
+            </ol>
+          </li>
+          <li><a href="#tehnologii">4. Tehnologii utilizate</a></li>
+          <li><a href="#ghid">5. Ghid de utilizare</a></li>
+          <li><a href="#diagrama">6. Diagrama aplicației</a></li>
+          <li><a href="#bibliografie">7. Bibliografie</a></li>
+        </ol>
+      </nav>
 
+      <section id="abstract" role="doc-abstract">
+        <h2>1. Abstract</h2>
+        <p>
+          ReT (Resource Recommender Web Tool) este o aplicație web care ajută utilizatorii să descopere rapid resurse digitale relevante, precum articole, imagini și videoclipuri, dintr-o varietate de surse online. Utilizatorii își pot crea conturi, pot selecta domeniile de interes și primesc recomandări personalizate pe baza preferințelor lor. Aplicația permite filtrarea și căutarea conținutului, salvarea resurselor favorite și generarea de fluxuri RSS personalizate. Administratorii pot gestiona utilizatorii și monitoriza activitatea platformei. ReT oferă o experiență intuitivă, acces rapid la informații și posibilitatea de export a datelor, fiind utilă atât pentru utilizatorii obișnuiți, cât și pentru administratori.
+        </p>
+      </section>
 
-    <section id="abstract" role="doc-introduction">
-      <h2>Abstract</h2>
-      <p>
-        Proiectul  <b>ReT(Resource Recommender Web Tool)</b> este o aplicație web de tip mash-up care furnizează și recomandă utilizatorilor colecții de resurse (știri, documente, imagini, videoclipuri etc).
-        Resursele sunt personalizate conform preferințelor utilizatorilor și sunt preluate de pe diverse site-uri web predefinite sau specificate de utilizatori.
-        Recomandările sunt disponibile și sub formă de fluxuri RSS.
+      <section id="introduction" role="doc-introduction">
+        <h2>2. Introducere</h2>
+        <p>
+          Proiectul ReT permite utilizatorilor să descopere și să gestioneze resurse digitale într-o manieră eficientă și intuitivă. Platforma folosește tehnologii moderne precum JavaScript, Node.js și PostgreSQL pentru interacțiuni dinamice, recomandări personalizate și stocarea sigură a datelor utilizatorilor și resurselor.
+        </p>
+        <p>Obiectivele proiectului:</p>
+        <ul>
+          <li>Oferirea recomandărilor personalizate pe baza preferințelor.</li>
+          <li>Simplificarea gestionării și accesului la resurse digitale.</li>
+          <li>Integrarea informațiilor într-un format standardizat și accesibil.</li>
+        </ul>
+      </section>
 
-      </p>
-    </section>
-    <section id="introduction" role="doc-introduction">
-      <h2>Introducere</h2>
-      <p>
-        Aplicația este concepută pentru a simplifica procesul de accesare a informațiilor relevante, oferind o experiență intuitivă și ușor de utilizat. 
-        ReT integrează tehnologii moderne pentru a colecta, analiza și recomanda resurse într-un format accesibil și atractiv.
-      </p>
-      <p>
-        Asistentul nostru va ajusta sugestiile de machiaj în funcție de preferințele 
-        utilizatorilor și va cauta intr-o varietate largă de opțiuni. 
-        În plus, site-ul va fi proiectat pentru a oferi o experiență de navigare 
-        și căutare a informațiilor intuitivă și ușor de utilizat.
-        <br><br>
-        Vom menține și actualiza constant site-ul pentru a garanta că toate 
-        datele și informațiile sunt actualizate și precise. Astfel, MaWa se va 
-        dovedi a fi un instrument esențial pentru toți cei interesați de frumusețe, 
-        atât pentru publicul larg, cât și pentru profesioniștii 
-        din domeniu, simplificând procesul de aplicare a unui machiaj de calitate.
-      </p>
-      <p>Obiectivele noastre:</p>
-      <ul>
-        <li>
-            <strong><b>Personalizarea resurselor: </b></strong> Adaptarea recomandărilor de machiaj în 
-            funcție de vârstă, ten și ocazie, pentru a oferi o experiență personalizată 
-            și accesibilă tuturor utilizatorilor.
-        </li>
-        <li>
-           <strong> Analiza produselor de calitate:</strong> Evaluarea și prezentarea produselor 
-            cosmetice de înaltă calitate la prețuri accesibile, cu o vizualizare 
-            clară și atractivă.
-        </li>
-        <li>
-          <strong>Integrarea datelor: </strong> Colectarea și sintetizarea datelor 
-          din diverse surse într-un format standardizat și simplu de utilizat.
-        </li>
-        <li>
-            <strong>Dezvoltarea instrumentelor de vizualizare:</strong> Crearea unei suite complexe de 
-            instrumente vizuale, incluzând diagrame și fotografii, 
-            care să permită utilizatorilor să exploreze.
-        </li>
-      </ul>
-    </section>
-    <section id="structure">
-      <h2>Structura</h2>
-      <p>
-        Pe acest site veți găsi o structură logica, împărțită în
-        șașe (șapte?) pagini principale, fiecare oferind un tip diferit de conținut și
-        funcționalitate.
-        <br><br>
+      <section id="structure" role="doc-section">
+        <h2>3. Structura</h2>
+        <p>
+          Pe acest site veți găsi o structură logică, organizată în mai multe pagini, fiecare oferind funcționalități specifice pentru gestionarea și recomandarea resurselor digitale.
+        </p>
+        <ul>
+          <li>
+            <b>Pagina principală oferă o privire de ansamblu asupra platformei ReT și permite generarea fluxurilor RSS personalizate (sau nu), cat si accesul rapid la cele mai noi și relevante resurse. Secțiunile dedicate vă permit să filtrați și să explorați articole, imagini sau videoclipuri în funcție de domeniile de interes/ preferințe personle.</b>
+          </li>
+          <li>
+            <b>Pagina Profil:</b> Disponibilă doar pentru utilizatorii autentificați (user sau admin), permite vizualizarea și gestionarea preferințelor și a resurselor favorite.
+          </li>
+          <li>
+            <b>Pagina Admin:</b> Accesibilă exclusiv utilizatorilor cu rol de administrator. În această secțiune, administratorii pot gestiona atât resursele (listare, ștergere, modificare), cât și utilizatorii platformei.
+          </li>
+        </ul>
 
-        Pagina principală vă va oferi o perspectivă globală
-        asupra acestui proiect, iar paginle cu diferite tipuri de machiaj 
-        va vor oferi posibiliattea de a selecta tipul de ten, categoria de varsta
-        din care faceți parte, dar si ocazia cu momentul zilei, pentru a vă ajuta să
-        vizualizați un machiaj perfect pentru dumneavastră. 
-        <br><br>
-        Pentru a vă ajuta am inclus o pagină de tutorial unde sunt prezentate
-        diferite tactici de aplicare a machiajului pentru fiecare parte a feței.
-        În plus, o pagină cu produse virale pe social media pentru a fi mereu la curent 
-        cu trendurile și pentru a descoperi produse noi.
-        <br><br>
-        Toate aceste pagini au o structură armonioasă și sunt ușor de navigat, pentru a vă ajuta să
-        accesați rapid și eficient informațiile de care aveți nevoie.
-      </p>
-    </section>
-    <section id="Root">
-      <h3>Elementul head</h3>
-      <p>Sectiunea head contine:</p>
-      <ul>
-        <li>
-          Titlul paginii, care apare in partea de sus a ferestrei de navigare a
-          browser-ului.
-        </li>
-        <li>
-          Pictograma care apare in bara de adrese sau in lista de file a
-          browser-ului.
-        </li>
-        <li>
-          O indicatie ca documentul foloseste encoding-ul UTF-8, care suporta
-          caracterele din mai multe limbi si scrieri.
-        </li>
-        <li>
-         Pentru style am folosit un link către pagina de css destinata paginii principale, si un link pentru
-         un anumit tip de scris.
-        </li>
-      </ul>
-      <pre><code>
-          &lt;head>
-          &lt;title>PAGINA-PRINCIPALA&lt;/title>
-          &lt;link rel="website icon" href="/images/profil.jpg" >
-          &lt;link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
-          &lt;meta charset="UTF-8" >
-          &lt;link rel="stylesheet" href="/css/style2.css" >
-          &lt;/head>
+        <section id="head" role="doc-section">
+          <h3>3.1 Elementul head</h3>
+          <p>
+            Secțiunea <code>&lt;head&gt;</code> a fiecărei pagini din proiectul ReT conține elemente esențiale pentru funcționarea și aspectul aplicației:
+          </p>
+          <ul>
+            <li><b>Titlul paginii</b> – apare în partea de sus a ferestrei de navigare a browserului și ajută utilizatorul să identifice rapid scopul paginii.</li>
+            <li><b>Pictograma (favicon)</b> – apare în bara de adrese și în tab-urile browserului, reprezentând vizual aplicația ReT.</li>
+            <li><b>Meta charset UTF-8</b> – asigură afișarea corectă a caracterelor din diverse limbi și scrieri.</li>
+            <li><b>Meta viewport</b> – permite ca pagina să fie afișată corect pe orice dispozitiv, inclusiv pe mobil.</li>
+            <li><b>Link către fișierul CSS</b> – pentru stilizarea paginii principale și asigurarea unui aspect modern și coerent.</li>
+            <li><b>Link către font extern</b> – pentru utilizarea fontului Roboto, îmbunătățind lizibilitatea și aspectul general.</li>
+          </ul>
+          <p>
+            Exemplu de cod pentru secțiunea <code>&lt;head&gt;</code>:
+          </p>
+          <pre><code>
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width,initial-scale=1"&gt;
+  &lt;title&gt;ReT – Recomandări resurse&lt;/title&gt;
+  &lt;link rel="stylesheet" href="css/style.css"&gt;
+  &lt;link rel="icon" href="images/roz.jpeg"&gt;
+  &lt;link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"&gt;
+&lt;/head&gt;
         </code></pre>
-    </section>
-    <section id="article">
-      <h3>Article</h3>
-      <p>
-        Tag-ul &lt;section> este utilizat pentru a împărți conținutul paginii în
-        secțiuni mai mici și mai ușor de gestionat, ceea ce face mai ușoară
-        organizarea și structurarea informațiilor și face paginile mai ușor de
-        înțeles și de navigat pentru utilizatori. Un exemplu de utilizare al
-        acestui tag in cadrul site-ului nostru este:
-      </p>
-        <pre><code>
-          &lt;section class="header">
-          ...
-          &lt;div class="clip">Makeup/div>   
-          &lt;div class="text-box">
-          &lt;h2>Your Make-up Web Assistant/h2>
-          &lt;br>
-          &lt;a href="#about" class="hero-btn">AFLA MAI MULTE/a>
-          &lt;/div>
-          &lt;/section>
+        </section>
+        <section id="articole" role="doc-section">
+          <h3>3.2 Articole și secțiuni</h3>
+          <p>
+            Tag-ul <code>&lt;section&gt;</code> este utilizat pentru a împărți conținutul paginii în secțiuni mai mici și mai ușor de gestionat, ceea ce face mai ușoară organizarea și structurarea informațiilor și face paginile mai ușor de înțeles și de navigat pentru utilizatori. În cadrul proiectului ReT, acest tag este folosit pentru a delimita diferite zone funcționale sau tematice ale paginii.
+          </p>
+          <p>Un exemplu de utilizare a tag-ului <code>&lt;section&gt;</code> pentru filtrarea resurselor este:</p>
+          <pre><code>
+&lt;section id="filters"&gt;
+  &lt;h2&gt;Filtrează resurse&lt;/h2&gt;
+  &lt;input type="text" id="topic" placeholder="Subiect (ex: inteligență artificială)"&gt;
+  &lt;select id="type"&gt;
+    &lt;option value=""&gt;Toate tipurile&lt;/option&gt;
+    &lt;option value="news"&gt;Știri&lt;/option&gt;
+    &lt;option value="video"&gt;Video&lt;/option&gt;
+    &lt;option value="image"&gt;Imagini&lt;/option&gt;
+    &lt;option value="document"&gt;Documente&lt;/option&gt;
+  &lt;/select&gt;
+  &lt;button id="loadNewsBtn" type="button" class="form-button"&gt;Recomandă&lt;/button&gt;
+  &lt;button id="generate-rss-btn" class="form-button"&gt;Generează RSS personalizat&lt;/button&gt;
+&lt;/section&gt;
         </code></pre>
-    </section>
-    <section id="hunk">
-      <h3>Elemente</h3>
-      <p>Printre tag-urile utilizate de noi se regasesc:</p>
-      <p></p>
-      <ul>
-        <li>
-          <code> &lt;li> </code> in general, este utilizat în cadrul unei liste
-          ordonate (&lt;ol>) sau a unei liste neordonate (&lt;ul>) pentru a
-          defini fiecare element individual din lista.
-        </li>
-        
-        <li>
-          <code> &lt;p> </code> este folosit pentru a defini un paragraf de
-          text. Acesta marchează începutul și sfârșitul unui bloc de text care
-          formează un paragraf.
-        </li>
-      </ul>
-    </section>
-    <section id="inline">
-      <h3>Elemente Inline</h3>
-      <p></p>
+          <p>
+            De asemenea, pentru resursele recomandate, folosim structurarea cu <code>&lt;article&gt;</code> și <code>&lt;section&gt;</code> astfel:
+          </p>
+          <pre><code>
+&lt;article class="resource"&gt;
+  &lt;section class="resource-header"&gt;
+    &lt;h2&gt;Titlul Articolului&lt;/h2&gt;
+  &lt;/section&gt;
+  &lt;section class="resource-content"&gt;
+    &lt;p&gt;Descriere detaliată a resursei.&lt;/p&gt;
+  &lt;/section&gt;
+&lt;/article&gt;
+        </code></pre>
+        </section>
+        <section id="elemente" role="doc-section">
+          <h3>3.3 Elemente</h3>
+          <p>
+            În structura HTML a proiectului ReT, sunt utilizate diverse elemente pentru afișarea și interacțiunea cu conținutul. Printre cele mai folosite se numără:
+          </p>
+          <ul>
+            <li>
+              <b>&lt;li&gt;</b> – Utilizat în cadrul listelor ordonate (<code>&lt;ol&gt;</code>) sau neordonate (<code>&lt;ul&gt;</code>) pentru a defini fiecare element individual din listă.<br>
+              <pre><code>
+&lt;ul&gt;
+  &lt;li&gt;Oferirea recomandărilor personalizate pe baza preferințelor.&lt;/li&gt;
+  &lt;li&gt;Simplificarea gestionării și accesului la resurse digitale.&lt;/li&gt;
+&lt;/ul&gt;
+              </code></pre>
+            </li>
+            <li>
+              <b>&lt;p&gt;</b> – Folosit pentru a defini un paragraf de text, marcând începutul și sfârșitul unui bloc de text.<br>
+              <pre><code>
+&lt;p&gt;
+  Proiectul ReT permite utilizatorilor să descopere și să gestioneze resurse digitale într-o manieră eficientă și intuitivă.
+&lt;/p&gt;
+              </code></pre>
+            </li>
+            <li>
+              <b>&lt;button&gt;</b> – Utilizat pentru acțiuni precum recomandarea sau generarea de fluxuri RSS.<br>
+              <i>Exemplu din proiect:</i>
+              <pre><code>
+&lt;button id="generate-rss-btn" class="form-button"&gt;Generează RSS personalizat&lt;/button&gt;
+              </code></pre>
+            </li>
+          </ul>
+        </section>
+        <section id="inline" role="doc-section">
+  <h3>3.3.1 Elemente Inline</h3>
+   <p></p>
       <ul>
         <li>
           <code>&lt;a></code> este folosit pentru a crea un hyperlink către o
           altă pagină web sau către o altă secțiune din aceeași pagină. Prin actionarea acestei comenzi, utilizatorul 
           este redirectionat catre pagina principala.
           <p>Un exemplu din codul nostru unde este utilizat acest tag este:</p>
-          <pre><code> &lt;a href="#about" class="hero-btn">AFLA MAI MULTE /a></code></pre>
+          <pre><code> &lt; a href="index.html" class="go-home-btn" title="Mergi la pagina principala">Home</a>
+></code></pre>
 
         </li>
-        <li>
-          <code>&lt;img></code> este un tag de auto-închidere și nu necesită un
-          tag de închidere separat. În general, &lt;img> are un atribut src care
-          specifică locația imaginii și un alt atribut opțional alt care descrie
-          conținutul imaginii.
-          <p>Un exemplu din codul nostru unde este utilizat acest tag este:</p>
-          <pre><code> &lt;img id="logo" src="/images/profil.jpg"  alt="Profil"></code></pre>
+</section>
+        <section id="atribute" role="doc-section">
+          <h3>3.4 Atribute utilizate</h3>
+         <ul>
+          <li>
+            <code>atributul rel</code> este folosit pentru a specifica relația
+            dintre pagina curentă și resursa legată de ea. Acesta se folosește de
+            obicei în legătură cu elementul "a", dar poate fi folosit și cu alte
+            elemente, cum ar fi "link" sau "area".
+          </li>
+        </ul>
+        <p>
+          Exemple din codul nostru unde este utilizat acest atribut este:<br >
+          <code> &lt;link rel="stylesheet" href="css/style.css"> </code>
+        </p>
+        <ul>
+          <li>
+            <code>atributul class </code> este utilizat pentru a specifica o clasă
+            sau o serie de clase CSS asociate cu un element HTML. Atributul
+            <code>id</code> este utilizat pentru a identifica un element specific
+            pe o pagină web. Fiecare element poate avea un singur atribut id, care
+            trebuie să fie unic pe întreaga pagină.
+          </li>
+        </ul>
+        <p>Exemple din codul nostru unde sunt utilizate aceste atribute sunt:<br>
+          <code> &lt;section class="admin-section" id="section-utilizatori" style="display:none;"</code><br> 
+          <code> &lt;section class="admin-section" id="section-resurse"></code><br>
+          <code> &lt;div class="import-export-btns"></code>
+        </p>
+        </section>
+        <section id="clase" role="doc-section">
+          <h3>3.5 Clase utilizate</h3>
+          <p>
+            Atributul <code>class</code> în CSS este utilizat pentru a defini o clasă de stiluri care poate fi aplicată la unul sau mai multe elemente HTML. În proiectul ReT, clasele sunt folosite pentru a stiliza componentele principale ale interfeței și pentru a asigura o experiență vizuală coerentă.
+          </p>
+          <p>Exemple de utilizare a acestui atribut în proiect:</p>
 
-        </li>
-      </ul>
-    </section>
-    <section id="atribute">
-      <h3>Atribute utilizate</h3>
-      <ul>
-        <li>
-          <code>atributul rel</code> este folosit pentru a specifica relația
-          dintre pagina curentă și resursa legată de ea. Acesta se folosește de
-          obicei în legătură cu elementul "a", dar poate fi folosit și cu alte
-          elemente, cum ar fi "link" sau "area".
-        </li>
-      </ul>
-      <p>
-        Exemple din codul nostru unde este utilizat acest atribut este:<br >
-        <code> &lt;link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia" > </code>
-      </p>
-      <p>
-        <code>
-          &lt;link rel="website icon" href="/images/profil.jpg">
-        </code>
-      </p>
-      <ul>
-        <li>
-          <code>atributul class </code> este utilizat pentru a specifica o clasă
-          sau o serie de clase CSS asociate cu un element HTML. Atributul
-          <code>id</code> este utilizat pentru a identifica un element specific
-          pe o pagină web. Fiecare element poate avea un singur atribut id, care
-          trebuie să fie unic pe întreaga pagină.
-        </li>
-      </ul>
-      <p>Exemple din codul nostru unde sunt utilizate aceste atribute sunt:<br>
-        <code> &lt;section class="header"></code><br> 
-        <code> &lt;div class="nav-links" id="nav-links"></code><br>
-        <code> &lt;div class="clip">Makeup></code>
-      </p>
-    </section> <!--atribute-->
+          <ul>
+            <li>
+              <b>.go-home-btn</b> – Această clasă este folosită pentru butonul de revenire rapidă la pagina principală, prezent pe toate paginile aplicației.<br>
+              <pre><code>
+&lt;a href="index.html" class="go-home-btn" title="Mergi la pagina principala"&gt;Home&lt;/a&gt;
+              </code></pre>
+              <pre><code>
+.go-home-btn {
+  position: fixed;
+  right: 2em;
+  bottom: 2em;
+  background: #1f1f1f;
+  color: #fff;
+  padding: 0.8em 2em;
+  border-radius: 30px;
+  font-size: 1em;
+  font-weight: bold;
+  text-decoration: none;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+  z-index: 999;
+  transition: background 0.2s, color 0.2s;
+}
+.go-home-btn:hover {
+  background: #1f1f1f;
+  color: #ffcc00;
+}
+              </code></pre>
+            </li>
+            <li>
+              <b>.btn-primary</b> – Această clasă definește stilurile pentru butoanele principale din aplicație.<br>
+              <pre><code>
+&lt;button class="btn btn-primary"&gt;Export JSON&lt;/button&gt;
+              </code></pre>
+              <pre><code>
+.btn-primary {
+  background-color: #0077cc;
+  color: #fff;
+  border-radius: 6px;
+  font-weight: bold;
+  padding: 0.7em 2em;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.btn-primary:hover {
+  background: #005fa3;
+}
+              </code></pre>
+            </li>
+            <li>
+              <b>.resource</b> – Această clasă este folosită pentru cardurile de resurse afișate pe pagina principală.<br>
+              <pre><code>
+&lt;div class="resource"&gt;...&lt;/div&gt;
+              </code></pre>
+              <pre><code>
+.resource {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 15px 0;
+  border-radius: 5px;
+  background: #fff;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+              </code></pre>
+            </li>
+            <li>
+              <b>.tabs</b> – Pentru stilizarea taburilor din pagina de administrare.<br>
+              <pre><code>
+&lt;div class="tabs"&gt;...&lt;/div&gt;
+              </code></pre>
+              <pre><code>
+.tabs {
+  display: flex;
+  gap: 0.5em;
+  margin: 2em 0 2em 2em;
+  align-items: center;
+}
+              </code></pre>
+            </li>
+          </ul>
+        </section>
+      </section>
 
-    <section id="clase">
-      <h3>Clase utilizate</h3>
-      <p>
-        Atributul "class" în CSS este utilizat pentru a defini o clasă de
-        stiluri care poate fi aplicată la unul sau mai multe elemente HTML.
-        <br >
-        Exemple de utilizare a acestui atribut: <br >
-      </p>
+      <section id="tehnologii" role="doc-section">
+        <h2>4. Tehnologii utilizate</h2>
+        <ul>
+          <li>
+            <b>HTML</b> – Folosit pentru structurarea conținutului aplicației ReT. Cu ajutorul HTML sunt definite elemente precum titluri, paragrafe, liste, formulare, butoane, imagini și link-uri între pagini.
+          </li>
+          <li>
+            <b>CSS</b> – Utilizat pentru stilizarea și aspectul vizual al aplicației. CSS definește culorile, fonturile, spațierile, poziționarea elementelor, responsive design și efecte vizuale pentru o experiență modernă și coerentă.
+          </li>
+          <li>
+            <b>JavaScript</b> – Permite interactivitate și funcționalitate dinamică în paginile web. În ReT, JavaScript este folosit pentru filtrarea și recomandarea resurselor, gestionarea preferințelor, validarea formularelor și comunicarea cu backend-ul prin AJAX.
+          </li>
+          <li>
+            <b>Node.js</b> – Folosit pentru partea de backend a aplicației, gestionând logica serverului, autentificarea, procesarea datelor și interacțiunea cu baza de date.
+          </li>
+          <li>
+            <b>PostgreSQL</b> – Baza de date relațională utilizată pentru stocarea sigură a utilizatorilor, resurselor și preferințelor.
+          </li>
+        </ul>
+      </section>
 
-      <ul>
-        <li>
-          Această clasă CSS, ".insta-icon", este destinată unui element HTML cu
-          clasa "insta-icon" care se află în interiorul unui element HTML
-          "header". <br >
-          Acest set de reguli CSS va face următoarele pentru elementul
-          "insta-icon":
-        </li>
+      <section id="ghid" role="doc-section">
+        <h2>5. Ghid de utilizare</h2>
 
-        <li>
-          Va seta lățimea maximă a elementului la 20% din lățimea elementului
-          părinte.
-        </li>
-        <li>
-          Va face înălțimea elementului "insta-icon" ajustabilă astfel încât
-          imaginea să nu se distorsioneze atunci când se redimensionează pagina.
-        </li>
-        <li>
-          Va seta elementul "insta-icon" să fie afișat ca un element bloc
-          (display: block).
-        </li>
-        <li>
-          Va seta margin-left la 50%, ceea ce va muta elementul spre dreapta,
-          jumătate din lățimea elementului părinte.
-        </li>
-      </ul>
-      <pre>
-            <code>
-                header .insta-icon {
-                max-width: 20%;
-                height: auto;
-                margin-left: 50%;
-                display: block;
-            }
-           </code></pre>
-      <ul>
-        <li>
-          Aceasta clasa definește stilurile pentru un element HTML care
-          reprezinta un buton:
-        </li>
-      </ul>
-      <pre>
-            <code>
-              .box-form .right button {
-                float: none;
-                color: #fff;
-                font-size: 16px;
-                padding: 12px 35px;
-                border-radius: 50px;
-                display: inline-block;
-                border: 0;
-                outline: 0;
-                margin-top: 15px;
-                box-shadow: 0px 4px 20px 0px #d07fe9b5;
-               /*background-image: linear-gradient(135deg,#e735d2c3 10%, hotpink 100%);*/
-                background-image: linear-gradient(to right, #e735d2c3, hotpink);
-              }
-            </code>
-           </pre>
-    </section><!--clase-->
+        <p><b>Accesarea paginii de register:</b></p>
+        <ol>
+          <li>După ce ați apăsat pe "Register" din header-ul paginii principale, veți fi direcționați pe pagina de înregistrare.</li>
+          <li>Completați formularul de înregistrare cu informațiile necesare.</li>
+          <li>Apăsați butonul "Înregistrare".</li>
+          <li>Contul dvs. va fi creat și veți fi redirecționat către pagina de login.</li>
+          <li>Utilizați username și parola create pentru a vă loga.</li>
+          <li>După logare, veți fi redirecționat către pagina "Profile".</li>
+        </ol>
 
-    <section id="tehnologii">
-      <h3>Tehnologii utilizate</h3>
-      <p>
-        HTML este responsabil pentru structurarea conținutului site-ului,
-        ajutând la definirea elementelor precum titlurile, textul, imagini sau
-        hyperlink-urile.
-      </p>
-      <p>
-        În ceea ce privește CSS, acesta este un limbaj de stilizare care ajută
-        la definirea stilului vizual al paginilor web, cum ar fi culorile,
-        fonturile, dimensiunile și altele.</p>
+        <p><b>Accesarea paginii de login:</b></p>
+        <ol>
+          <li>În pagina de login, vei găsi un formular pentru autentificare. Completează câmpurile necesare (utilizator și parolă).</li>
+          <li>Dacă sunteți deja înregistrat, introduceți datele de autentificare și apăsați butonul "Conectează-te".</li>
+          <li>După autentificare cu succes, veți fi redirecționat către pagina "Profile".</li>
+          <li>Dacă nu aveți un cont, apăsați butonul "Register" din pagina Home pentru a crea unul nou.</li>
+          <li>Veți fi redirecționat către pagina de înregistrare, unde completați formularul și apăsați "Înregistrare".</li>
+          <li>După înregistrare, veți fi redirecționat către login, apoi către "Profile".</li>
+          <li>În partea de jos a paginii login există opțiunea "Ai uitat parola". Introduceți emailul pentru resetarea parolei.</li>
+        </ol>
 
-      <p>Iar, JavaScript este un limbaj de programare care permite 
-        interactivitatea și funcționalitatea dinamică în paginile web.</p>
-    </section> <!--tehnologii-->
+        <p><b>Accesarea paginii Home:</b></p>
+        <ol>
+          <li>Puteți accesa pagina principală, indiferent dacă sunteți autentificat sau nu.</li>
+          <li>Pe pagina principală puteți filtra resursele după subiect și tip (videoclip, imagini, știri, documente), puteți genera fluxuri RSS personalizate și accesa rapid celelalte pagini din meniul de sus (<b>About</b>, <b>Profil</b>, <b>Admin</b>, <b>Help</b>).</li>
+        </ol>
 
-    <section id="ghid">
-      <h3>Ghid de utilizare</h3>
+        <p><b>Accesarea paginii Profil:</b></p>
+        <ol>
+          <li>Accesați <code>profile.html</code> din meniu.</li>
+          <li>Pe această pagină puteți vizualiza datele contului, schimba parola, gestiona preferințele (adăugare/ștergere) și vizualiza recomandările personalizate (dacă acestea există).</li>
+        </ol>
 
-      <p>Accesarea paginii de login:</p>
-      <ol>
-        <li>În pagina de login, vei găsi un formular pentru autentificare. Completează câmpurile necesare (adresa de email și parola).
-        </li>
-        <li>Pe pagina de login, va mai fi o optiune "Nu ai un cont inca? Creeaza aici", in cazul in care esti un utilizator nou pe site.
-        </li>
-        <li>Dacă aveți deja un cont, introduceți datele de autentificare în câmpurile corespunzătoare (adresa de email și parola) și apăsați butonul "Autentificare".
-        </li>
-        <li>După ce v-ați autentificat cu succes, veți fi redirecționat către pagina principală a proiectului.
-        </li>
-        <li>Dacă nu aveți un cont și doriți să creați unul nou, apăsați butonul "Creeaza aici"</li>
-        <li>Veți fi redirecționat către pagina de înregistrare (register), unde va trebui să completați un formular cu informațiile necesare pentru crearea contului.</li>
-        <li> După ce ați terminat completatarea campurilor și ați apăsat butonul "Inregistrare" veți fi redirecționat către pagina de autentificare 
-          care mai apoi va va redircetiona catre pagina principala.</li>
-        <li> In partea de jos a paginii login, mai avem optiunea de "Resetare parola". 
-          Userul trebuie sa introduca emailul cu care si-a creat contul pentru a putea schimba parola.</li>
-      </ol>
+        <p><b>Accesarea paginii Admin:</b></p>
+        <ol>
+          <li>Disponibilă doar pentru utilizatorii cu rol de administrator (<code>admin.html</code>).</li>
+          <li>Aici puteți gestiona resursele (listare, adăugare, ștergere, modificare) și utilizatorii platformei, precum și importa/exporta date în formate CSV/JSON.</li>
+        </ol>
 
-      <p>Accesarea paginii de register:</p>
-      <ol>
-        <li>Dupa ce ati apasat pe "Creeaza aici" din pagina login, ati ajuns in pagina register.
-        </li>
-        <li> Completați formularul de înregistrare cu informațiile necesare.
-        </li>
-        <li>Apăsați butonul "Inregistrare".
-        </li>
-        <li>Contul dvs. va fi creat și veți fi redirecționat către pagina de login.
-        </li>
-        <li>Utilizați adresa de email și parola create pentru a vă loga.
-        </li>
-        <li>După logare, veți fi redirecționat către pagina principală.</li>
-      </ol>
+        <p><b>Accesarea paginii Help:</b></p>
+        <ol>
+          <li>Din meniul principal sau din footer, puteți accesa <code>help.html</code> pentru întrebări frecvente și informații de contact.</li>
+        </ol>
 
-      <p>Accesarea paginii principale:</p>
-      <ol>
-        <li> Accesați pagina principală.
-          Pe pagina principala veți găsi scurtături către diferite articole și
-          un meniu in header-ul paginii care conține link-uri către celelalte pagini.
-        </li>
-        <li>
-          Dacă doriți să aflați mai multe despre subiectele prezentate pe pagina
-          principală, dați click pe scurtăturile corespunzătoare sau pe
-          link-urile din meniu.
-        </li>
-        <li>
-         Din bara de navigație de sus, aveți opțiunea de a selecta paginile pentru diversele tipuri de make-up.
-         Acolo veți găsi diverse tipuri de tutoriale sub forma unor imagini si gif-uri, care prezintă 
-         informațiile într-un mod vizual atractiv.
-        </li>
-      </ol>
-
-      <p>Accesarea paginii "Contact":</p>
-      <ol>
-        <li>
-          Pentru a accesa pagina "Contact", dați click pe butonul corespunzător
-          din meniul din josul paginii principale.
-        </li>
-        <li>
-          Pe această pagină veți găsi informații de contact pentru creatorii
-          site-ului.
-        </li>
-      </ol>
-      <p>Accesarea paginii "Help":</p>
-      <ol>
-        <li>
-          Pentru a accesa "Help", dați click pe butonul corespunzător
-          din meniul din josul paginii principale.
-        </li>
-        <li>
-          Astfel veti fi redirectionat catre pagina "Tutorial" a proiectului MaWa.
-        </li>
-      </ol>
-      <p>Accesarea link-ului "Testeaza produsul":</p>
-      <ol>
-        <li>
-          Pentru a accesa "Testeaza produsul", dați click pe butonul corespunzător
-          din meniul din josul paginii principale.
-        </li>
-        <li>
-          Pe acest link veti putea testa ingrdientele oricarui produs. 
-          Acesta va duce pe pagina celor de la Acne Clinic, unde pot fi testate produsele.
-        </li>
-      </ol>
-    </section><!--ghidul-->
-
-    <section id="diagrama">
-      <h3>Diagrama aplicatiei</h3>
-      <img alt="Diagrama aplicatiei" src="diagrama.png" style="height: 50%; width: 90%">
-    </section> <!--diagrama-->
-    
-    <section id="bibliografie">
-      <h3>Bibliografie</h3>
-      <p>Site-ul utilizeaza informatii disponibile la urmatoarele adrese:</p>
-      <ul>
-        <li>
-          <a href="https://tehnologii-web.vercel.app/"
-            >https://tehnologii-web.vercel.app/</a
-          >
-        </li>
-        <li>
-          <a href="https://profs.info.uaic.ro/andrei.panu/courses/web/"
-            >https://profs.info.uaic.ro/andrei.panu/courses/web/</a
-          >
-        </li>
-        <li>
-          <a href="https://www.w3schools.com/css/default.asp"
-            >https://www.w3schools.com/css/default.asp</a>
-        </li>
-        <li>
-          <a href="https://www.w3schools.com/html/default.asp"
-            >https://www.w3schools.com/html/default.asp</a>
-        </li>
-        <li>
-          <a
-            href="https://devurls.com/"
-            >https://devurls.com/
-          </a>
-        </li>
-        <li>
-          <a href="https://github.com/gitdagray"
-            >https://github.com/gitdagray</a
-          >
-        </li>
-        <li>
-          <a
-            href="https://freecodecamp.org/"
-            >https://freecodecamp.org/
-          </a>
-        </li>
-      </ul>
-    </section>
+        <p><b>Logout:</b></p>
+        <ol>
+          <li>Pentru a vă deloga, folosiți butonul <b>Logout</b> din meniul principal.</li>
+        </ol>
+      </section>
+      <section id="diagrama" role="doc-section">
+        <h2>6. Diagrama aplicației</h2>
+        <p>
+          Diagrama aplicației ReT ilustrează arhitectura și fluxul de date între componentele frontend și backend, evidențiind interacțiunile cu baza de date și modul în care utilizatorii interacționează cu platforma.
+        </p>
+        <figure>
+    <img src="diagrame/clasa-C1-context.drawio.png" alt="Diagrama context"  style="height: 50%; width: 90%">
+    <figcaption>clasa-C1-context</figcaption>
+  </figure>
+  <figure>
+    <img src="diagrame/clasa-C2-containers.drawio.png" alt="Diagrama containers"  style="height: 50%; width: 90%">
+    <figcaption>clasa-C2-containers</figcaption>
+  </figure>
+  <figure>
+    <img src="diagrame/clasa-C3-component.drawio.png" alt="Diagrama component"  style="height: 50%; width: 90%">
+    <figcaption>clasa-C3-component</figcaption>
+  </figure>
+  <figure>
+    <img src="diagrame/clasa-C4-code.drawio.png" alt="Diagrama code"  style="height: 50%; width: 90%">
+    <figcaption>clasa-C4-code</figcaption>
+  </figure>
+  <figure>
+    <img src="diagrame/clasa-UseCase.drawio.png" alt="Diagrama UseCase"  style="height: 50%; width: 90%">
+    <figcaption>clasa-UseCase</figcaption>
+  </figure>
+      </section>
+     <section id="bibliografie" role="doc-bibliography">
+        <h3>Bibliografie</h3>
+        <p>Site-ul utilizeaza informatii disponibile la urmatoarele adrese:</p>
+        <ul>
+          <li>
+            <cite><a href="https://tehnologii-web.vercel.app/">https://tehnologii-web.vercel.app/</a></cite>
+          </li>
+          <li>
+            <cite><a href="https://profs.info.uaic.ro/andrei.panu/courses/web/">https://profs.info.uaic.ro/andrei.panu/courses/web/</a></cite>
+          </li>
+          <li>
+            <cite><a href="https://www.w3schools.com/css/default.asp">https://www.w3schools.com/css/default.asp</a></cite>
+          </li>
+          <li>
+            <cite><a href="https://www.w3schools.com/html/default.asp">https://www.w3schools.com/html/default.asp</a></cite>
+          </li>
+          <li>
+            <cite><a href="https://devurls.com/">https://devurls.com/</a></cite>
+          </li>
+          <li>
+            <cite><a href="https://github.com/gitdagray">https://github.com/gitdagray</a></cite>
+          </li>
+          <li>
+            <cite><a href="https://freecodecamp.org/">https://freecodecamp.org/</a></cite>
+          </li>
+        </ul>
+      </section>
+    </article>
   </body>
 </html>

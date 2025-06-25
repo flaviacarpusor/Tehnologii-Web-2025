@@ -5,16 +5,37 @@ html {
 }
 
 body {
-    margin: 0
+    margin: 0;
+    font-size: 16px; /* sau 14px, după preferință */
 }
 
 a {
-    background-color: transparent
+    background-color: transparent;
+    text-decoration: none;
 }
 
 h1 {
-    font-size: 2em;
+    font-size: 2em; /* sau 1.5em, după preferință */
     margin: .67em 0;
+}
+
+h2 {
+    font-size: 1.3em;
+    margin-top: 3em;
+}
+
+h3 {
+    font-size: 1.1em;
+    margin-top: 2.5em;
+}
+
+h4 {
+    font-weight: 300;
+    font-size: 1.2em;
+    -webkit-font-feature-settings: "c2sc";
+    font-feature-settings: "c2sc";
+    font-variant: small-caps;
+    margin: 2em 0 .5em;
 }
 
 img {
@@ -39,30 +60,13 @@ body {
 
 header>h1 {
     margin: 0;
-    font-size: 3em;
-    padding-top: 4em;
+    font-size: 2em; /* sau 1.5em, după preferință */
+    padding-top: 2em; /* poți reduce și padding-ul dacă vrei */
 }
 
 
 h1,h2,h3,h4,h5,h6 {
     letter-spacing: .0375em;
-}
-
-h2 {
-    margin-top: 3em;
-}
-
-h3 {
-    margin-top: 2.5em;
-}
-
-h4 {
-    font-weight: 300;
-    font-size: 1.2em;
-    -webkit-font-feature-settings: "c2sc";
-    font-feature-settings: "c2sc";
-    font-variant: small-caps;
-    margin: 2em 0 .5em;
 }
 
 [role=contentinfo] a {
@@ -79,6 +83,12 @@ h4 {
 
 [role=contentinfo] dd {
     margin-bottom: 1em;
+}
+
+nav ol ol {
+  list-style-type: none;
+  margin-left: 1.5em;
+  padding-left: 0;
 }
 
 @media screen and (max-width: 577px) {
