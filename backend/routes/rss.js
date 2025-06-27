@@ -10,20 +10,28 @@ function escapeXml(unsafe) {
 }
 
 async function handleFilteredRss(req, res) {
-  // Parsează query-urile din URL
+  // Parseaza query-urile din URL
   const url = new URL(req.url, `http://${req.headers.host}`);
   const type = url.searchParams.get('type');
   const topic = url.searchParams.get('topic');
 
   let where = [`visibility = 'public'`];
-  if (type) where.push(`type = '${type.replace(/'/g, "''")}'`);
+  let params = [];
+  let paramIndex = 1;
+
+  if (type) {
+    where.push(`type = $${paramIndex}`);
+    params.push(type);
+    paramIndex++;
+  }
   if (topic) {
-    const safeTopic = topic.replace(/'/g, "''");
     where.push(`(
-    topic ILIKE '%${safeTopic}%' OR
-    title ILIKE '%${safeTopic}%' OR
-    description ILIKE '%${safeTopic}%'
-  )`);
+      topic ILIKE $${paramIndex} OR
+      title ILIKE $${paramIndex} OR
+      description ILIKE $${paramIndex}
+    )`);
+    params.push(`%${topic}%`);
+    paramIndex++;
   }
 
   const query = `
@@ -33,7 +41,7 @@ async function handleFilteredRss(req, res) {
     ORDER BY import_date DESC
     LIMIT 100
   `;
-  const result = await pool.query(query);
+  const result = await pool.query(query, params);
 
   let xml = `<?xml version="1.0" encoding="UTF-8" ?>
 <rss version="2.0">

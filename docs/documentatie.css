@@ -6,7 +6,7 @@ html {
 
 body {
     margin: 0;
-    font-size: 16px; /* sau 14px, după preferință */
+    font-size: 16px; 
 }
 
 a {
@@ -15,7 +15,7 @@ a {
 }
 
 h1 {
-    font-size: 2em; /* sau 1.5em, după preferință */
+    font-size: 2em; 
     margin: .67em 0;
 }
 
@@ -60,8 +60,8 @@ body {
 
 header>h1 {
     margin: 0;
-    font-size: 2em; /* sau 1.5em, după preferință */
-    padding-top: 2em; /* poți reduce și padding-ul dacă vrei */
+    font-size: 2em; 
+    padding-top: 2em; 
 }
 
 
